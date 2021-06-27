@@ -1,4 +1,3 @@
-import psycopg2
 from sqlalchemy import ForeignKey
 from app import app, db
 

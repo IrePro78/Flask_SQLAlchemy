@@ -36,7 +36,7 @@ def update_book():
 
 def delete_book(id):
     book = Book.query.get(id)
-    db.session.delete_book(book)
+    db.session.delete(book)
     db.session.commit()
     flash('Książka saksowana')
 
