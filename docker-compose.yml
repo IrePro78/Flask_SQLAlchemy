@@ -17,5 +17,6 @@ services:
       - POSTGRES_DB=Flask_SQLAlchemy
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=admin123
+      - POSTGRES_HOST=flask_sqlalchemy
     volumes:
     - ./data/db:/var/lib/postgresql/data
