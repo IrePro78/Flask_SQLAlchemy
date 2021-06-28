@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   app:
+    container_name: flask_app
     build: .
     ports:
     - "5000:5000"
@@ -11,10 +12,11 @@ services:
     - .:/app
   db:
     image: "postgres"
+    container_name: postgres_db
     ports:
     - "5432:5432"
     environment:
-      - POSTGRES_DB=Flask_SQLAlchemy
+      - POSTGRES_DB=Flask_DB
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=admin123
     volumes:

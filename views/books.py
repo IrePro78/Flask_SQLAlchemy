@@ -43,6 +43,6 @@ def delete_book(id):
     book = Book.query.get(id)
     db.session.delete(book)
     db.session.commit()
-    flash('Książka saksowana')
+    flash('Książka skasowana')
 
     return redirect(url_for('index'))
