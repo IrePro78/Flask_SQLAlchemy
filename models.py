@@ -2,9 +2,11 @@ from sqlalchemy import ForeignKey
 from app import app, db
 
 
+
+
 app.secret_key = 'SecretKey'
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://app:admin123@Flask_SQLAlchemy'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://app:admin123@fla:5432/Flask_DB'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
