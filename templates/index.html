@@ -15,7 +15,7 @@
 
             <div class="jumbotron p-3">
 
-                <h2>Zarządzanie <b>Książkami </b>  <button type="button"  class="btn btn-success float-right"
+                <h2>Zarządzanie <b>Książkami </b>  <button type="button" class="btn btn-success float-right"
                 data-toggle="modal" data-target="#mymodal">Dodaj nową książkę</button> </h2>
 
 
@@ -45,7 +45,6 @@
                 {% endif %}
                 {% endwith %}
 
-
                 <table class="table table-hover table-dark">
 
                     <tr>
@@ -53,7 +52,7 @@
                         <th>ID</th>
                         <th>Tytuł</th>
                         <th>Autor</th>
-{#                        <th>Phone</th>#}
+                        <th>Ilość stron</th>
                         <th>Akcja</th>
 
                     </tr>
@@ -63,8 +62,8 @@
                     <tr>
                         <td>{{row.id}}</td>
                         <td>{{row.title}}</td>
-                        <td>{{row.author_id}}</td>
-{#                        <td>{{row.phone}}</td>#}
+                        <td>{{row.author_name}}</td>
+                        <td>{{row.pages}}</td>
 
                         <td>
                             <a href="/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edytuj</a>
@@ -105,7 +104,11 @@
                   <label>Tytuł:</label>
                    <input type="hidden"  name="id" value="{{row.id}}">
 
-                  <input type="text" class="form-control" name="title" value="{{row.title}}">
+                   <input type="text" class="form-control" name="title" value="{{row.title}}">
+
+
+
+
 
 
                </div>
@@ -117,21 +120,21 @@
 
                   <label>Autor:</label>
 
-                  <input type="text" class="form-control" name="author_id" value="{{row.author_id}}">
+                  <input type="text" class="form-control" name="author_name" value="{{row.author_name}}">
 
 
                </div>
 
-{##}
-{#               <div class="form-group">#}
-{##}
-{##}
-{#                  <label>Phone:</label>#}
-{##}
-{#                  <input type="text" class="form-control" name="phone" value="{{row.phone}}">#}
-{##}
-{##}
-{#               </div>#}
+
+               <div class="form-group">
+
+
+                  <label>Ilość stron:</label>
+
+                  <input type="number" class="form-control" name="pages" value="{{row.pages}}">
+
+
+               </div>
 
 
                <div class="form-group">
@@ -204,20 +207,20 @@
 
 
                   <label>Autor:</label>
-                  <input type="number" class="form-control" name="author_id" required="1">
+                  <input type="text" class="form-control" name="author_name" required="1">
 
 
                </div>
 
 
-{#                <div class="form-group">#}
-{##}
-{##}
-{#                  <label>Phone:</label>#}
-{#                  <input type="number" class="form-control" name="phone" required="1">#}
-{##}
-{##}
-{#               </div>#}
+                <div class="form-group">
+
+
+                  <label>Ilość stron:</label>
+                  <input type="number" class="form-control" name="pages" required="1">
+
+
+               </div>
 
 
 
