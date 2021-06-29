@@ -7,11 +7,7 @@ class Author(db.Model):
     __tablename__ = 'authors'
     id = db.Column(db.Integer, primary_key=True)
     author_name = db.Column(db.String(255))
-    books = db.relationship('Book', backref='author', lazy='subquery')
-
-
-    def __init__(self, author_name):
-        self.author_name = author_name
+    books = db.relationship('Book', backref='author')
 
 
 class Book(db.Model):
@@ -21,11 +17,6 @@ class Book(db.Model):
     title = db.Column(db.String(255))
     pages = db.Column(db.Integer, nullable=False)
 
-
-    def __init__(self, title, author_id, pages):
-        self.author_id = author_id
-        self.title = title
-        self.pages = pages
 
 db.create_all()
 

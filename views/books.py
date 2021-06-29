@@ -7,6 +7,7 @@ def index():
     all_books = db.session.query(Book.id, Book.title, Author.author_name, Book.pages)
 
     # all_books = Book.query.all()
+
     return render_template('index.html', books=all_books)
 
 
@@ -15,14 +16,17 @@ def add_book():
 
     if request.method == 'POST':
         title = request.form['title']
-        pages = request.form['pages']
-        new_book = Book(title, pages)
         author_name = request.form['author_name']
-        new_author = Author(author_name)
-        db.session.add(new_book)
-        db.session.add(new_author)
-        db.session.commit()
-        flash('Książka dodana poprawnie')
+        pages = request.form['pages']
+        if author_name not in Author:
+            new_author = Author(author_name)
+            new_book = Book(title, new_author.id, pages)
+            db.session.add(new_author)
+            db.session.add(new_book)
+            db.session.commit()
+            flash('Książka dodana poprawnie')
+
+
         return redirect(url_for('index'))
 
 
