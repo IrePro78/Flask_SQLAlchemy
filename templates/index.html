@@ -58,12 +58,13 @@
                     </tr>
 
 
-                   {% for row in books %}
-                    {% for row1 in authors%}
+
+
+                    {% for row in books%}
                     <tr>
                         <td>{{row.id}}</td>
                         <td>{{row.title}}</td>
-                        <td>{{row1.author_name}}</td>
+                        <td>{{authors.author_name}}</td>
                         <td>{{row.pages}}</td>
 
                         <td>
@@ -171,6 +172,7 @@
 
 
                     {% endfor %}
+
 
 
                 </table>
