@@ -59,10 +59,11 @@
 
 
                    {% for row in books %}
+                    {% for row1 in authors%}
                     <tr>
                         <td>{{row.id}}</td>
                         <td>{{row.title}}</td>
-                        <td>{{row.author_name}}</td>
+                        <td>{{row1.author_name}}</td>
                         <td>{{row.pages}}</td>
 
                         <td>
@@ -120,7 +121,7 @@
 
                   <label>Autor:</label>
 
-                  <input type="text" class="form-control" name="author_name" value="{{row.author_name}}">
+                  <input type="text" class="form-control" name="author_name" value="{{authors.author_name}}">
 
 
                </div>
