@@ -4,11 +4,11 @@ from models import Book, Author, db
 
 def index():
 
-    # all_books = db.session.query(Book.id, Book.title, Author.author_name, Book.pages)
+    # all_books = db.session.query(Book.author_id == Author.id).all()
 
     all_books = Book.query.all()
-    all_authors = Author.query.all()
-    return render_template('index.html', books=all_books, authors=all_authors)
+    # all_authors = Author.query.all()
+    return render_template('index.html', books=all_books)
 
 
 

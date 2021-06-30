@@ -16,7 +16,7 @@ class Book(db.Model):
     title = db.Column(db.String(255))
     author_id = db.Column(db.Integer, db.ForeignKey('authors.id'), nullable=False)
     pages = db.Column(db.Integer, nullable=False)
-
+    authors = db.relationship("Author", backref='book')
 
 db.create_all()
 
