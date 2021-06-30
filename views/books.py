@@ -3,11 +3,8 @@ from models import Book, Author, db
 
 
 def index():
-
-    # all_books = db.session.query(Book.author_id == Author.id).all()
-
     all_books = Book.query.all()
-    # all_authors = Author.query.all()
+
     return render_template('index.html', books=all_books)
 
 
@@ -33,7 +30,8 @@ def update_book():
         book = Book.query.get(request.form.get('id'))
         book.id = request.form['id']
         book.title = request.form['title']
-        book.author_name = request.form['author_name']
+        author = Author.query.get(request.form.get('id'))
+        author.author_name = request.form['author_name']
         book.pages = request.form['pages']
         db.session.commit()
         flash('Edycja powiodła się')

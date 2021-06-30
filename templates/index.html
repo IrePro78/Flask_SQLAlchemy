@@ -64,7 +64,7 @@
                     <tr>
                         <td>{{row.id}}</td>
                         <td>{{row.title}}</td>
-                        <td>{{row.author_id}}</td>
+                        <td>{{row.author.author_name}}</td>
                         <td>{{row.pages}}</td>
 
                         <td>
@@ -122,7 +122,7 @@
 
                   <label>Autor:</label>
 
-                  <input type="text" class="form-control" name="author_name" value="{{row.autor_name}}">
+                  <input type="text" class="form-control" name="author_name" value="{{row.author.author_name}}">
 
 
                </div>
