@@ -17,7 +17,7 @@ def update_author(author):
     if request.method == 'POST':
        author.author_name = request.form['author_name']
        db.session.commit()
-       return author
+       return author.author_name
 
 
 def delete_author(author_id):

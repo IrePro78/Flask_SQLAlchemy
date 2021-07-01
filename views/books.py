@@ -31,7 +31,7 @@ def update_book():
         book.id = request.form['id']
         book.title = request.form['title']
         author = Author.query.get(request.form.get('id'))
-        author.author_name = request.form['author_name']
+        authors.update_author(author)
         book.pages = request.form['pages']
         db.session.commit()
         flash('Edycja powiodła się')
