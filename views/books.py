@@ -45,3 +45,4 @@ def delete_book(id):
     flash('Książka skasowana')
 
     return redirect(url_for('index'))
+.

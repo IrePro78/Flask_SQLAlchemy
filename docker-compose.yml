@@ -21,4 +21,3 @@ services:
       - POSTGRES_PASSWORD=admin123
     volumes:
     - ./data/db:/var/lib/postgresql/data
-.
