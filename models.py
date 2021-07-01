@@ -19,4 +19,3 @@ class Book(db.Model):
     author = db.relationship("Author", backref='book')
 
 db.create_all()
-.

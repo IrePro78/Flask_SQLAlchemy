@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash
 from models import Book, Author, db
+from views import authors
 
 
 def index():
@@ -9,20 +10,19 @@ def index():
 
 
 
+
 def add_book():
 
     if request.method == 'POST':
         title = request.form['title']
-        author_name = request.form['author_name']
         pages = request.form['pages']
-        new_author = Author(author_name= author_name)
-        db.session.add(new_author)
-        db.session.commit()
-        new_book = Book(title=title, author_id=new_author.id, pages=pages)
+        new_author = authors.add_author()
+        new_book = Book(title=title, author_id=new_author, pages=pages)
         db.session.add(new_book)
         db.session.commit()
         flash('Książka dodana poprawnie')
         return redirect(url_for('index'))
+
 
 
 def update_book():
@@ -45,4 +45,3 @@ def delete_book(id):
     flash('Książka skasowana')
 
     return redirect(url_for('index'))
-.

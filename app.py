@@ -14,5 +14,3 @@ app.add_url_rule('/delete/<id>', view_func=books.delete_book, methods=['GET', 'P
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
