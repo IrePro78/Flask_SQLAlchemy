@@ -13,8 +13,11 @@ def add_publisher():
         return new_publisher.id
 
 
-def update_publisher():
-    pass
+def update_publisher(publisher):
+    if request.method == 'POST':
+        publisher.publisher_name = request.form['publisher_name']
+        db.session.commit()
+        return publisher.publisher_name
 
 
 def delete_publishers():
