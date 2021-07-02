@@ -12,5 +12,6 @@ app.add_url_rule('/update-book', view_func=books.update_book, methods=['GET', 'P
 app.add_url_rule('/delete/<id>', view_func=books.delete_book, methods=['GET', 'POST'])
 
 
+
 if __name__ == '__main__':
     app.run(debug=True)

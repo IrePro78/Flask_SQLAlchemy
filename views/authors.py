@@ -1,6 +1,11 @@
-from flask import request
+from flask import request, render_template
 
 from models import Author, db
+
+
+def index_authors():
+    all_authors = Author.query.order_by(Author.id).all()
+    return render_template('index.html', books=all_authors)
 
 
 

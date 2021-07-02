@@ -9,266 +9,293 @@
 
 {% block body %}
 
-<div class="container">
-    <div class="row">
-        <div class="col md-12">
+    <div class="container">
+        <div class="row">
+            <div class="col md-12">
 
-            <div class="jumbotron p-3">
+                <div class="jumbotron p-3">
 
-                <h2>Zarządzanie <b>Książkami </b>  <button type="button" class="btn btn-success float-right"
-                data-toggle="modal" data-target="#mymodal">Dodaj nową książkę</button> </h2>
-
-
-                {% with messages = get_flashed_messages() %}
-
-                {% if messages %}
-
-                {% for message in messages %}
-
-                <div class="alert alert-success alert-dismissable" role="alert">
-
-                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
-
-                        <span aria-hidden="true">x</span>
-
-                    </button>
+                    <h2>Zarządzanie <b>Książkami </b>
+                        <button type="button" class="btn btn-outline-success float-right"
+                                data-toggle="modal" data-target="#mymodal"> Dodaj nową książkę
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary float-right mr-1"
+                                data-toggle="modal" data-target="#mymodal">Pokaż książki
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary float-right mr-1"
+                                data-toggle="modal" data-target="#mymodal"> Pokaż autorów
+                        </button>
+                    </h2>
 
 
-                {{message}}
+                    {% with messages = get_flashed_messages() %}
+
+                        {% if messages %}
+
+                            {% for message in messages %}
+
+                                <div class="alert alert-success alert-dismissable" role="alert">
+
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+
+                                        <span aria-hidden="true">x</span>
+
+                                    </button>
+
+
+                                    {{ message }}
+
+
+                                </div>
+
+
+                            {% endfor %}
+
+                        {% endif %}
+                    {% endwith %}
+
+                    <table class="table table-hover table-dark">
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Tytuł</th>
+                            <th>Autor</th>
+                            <th>Wydawnictwo</th>
+                            <th>Ilość stron</th>
+                            <th>Akcja</th>
+
+                        </tr>
+
+
+
+
+                        {% for row in books %}
+                            <tr>
+                                <td>{{ row.id }}</td>
+                                <td>{{ row.title }}</td>
+                                <td>{{ row.author.author_name }}</td>
+                                <td>{{ row.publisher.publisher_name }}</td>
+                                <td>{{ row.pages }}</td>
+
+                                <td>
+                                    <a href="/update/{{ row.id }}" class="btn btn-outline-warning btn-xs" data-toggle="modal"
+                                       data-target="#modaledit{{ row.id }}">Edytuj</a>
+                                    <a href="/delete/{{ row.id }}" class="btn btn-outline-danger btn-xs"
+                                       onclick="return confirm('Czy na pewno chcesz skasować ?')">Kasuj</a>
+
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- Modal Edit Books-->
+                            <div id="modaledit{{ row.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+
+                                    <div class="modal-content">
+
+
+                                        <div class="modal-header">
+
+
+                                            <h4 class="modal-title">Informacja edycji</h4>
+
+
+                                        </div>
+
+
+                                        <div class="modal-body">
+
+
+                                            <form action="{{ url_for('update_book') }}" method="POST">
+
+
+                                                <div class="form-group">
+
+
+                                                    <label>Tytuł:</label>
+                                                    <input type="hidden" name="id" value="{{ row.id }}">
+
+                                                    <input type="text" class="form-control" name="title"
+                                                           value="{{ row.title }}">
+
+
+                                                </div>
+
+
+
+                                                <div class="form-group">
+
+
+                                                    <label>Autor:</label>
+
+                                                    <input type="text" class="form-control" name="author_name"
+                                                           value="{{ row.author.author_name }}">
+
+
+                                                </div>
+
+                                                <div class="form-group">
+
+
+                                                    <label>Wydawnictwo:</label>
+
+                                                    <input type="text" class="form-control" name="publisher_name"
+                                                           value="{{ row.publisher.publisher_name }}">
+
+
+                                                </div>
+
+
+                                                <div class="form-group">
+
+
+                                                    <label>Ilość stron:</label>
+
+                                                    <input type="number" class="form-control" name="pages"
+                                                           value="{{ row.pages }}">
+
+
+                                                </div>
+
+
+                                                <div class="form-group">
+
+
+                                                    <button class="btn btn-primary" type="submit">Edytuj</button>
+
+
+                                                </div>
+
+
+                                            </form>
+
+
+                                        </div>
+
+
+                                        <div class="modal-footer">
+
+
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                Zamknij
+                                            </button>
+
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+
+                        {% endfor %}
+
+
+                    </table>
 
 
                 </div>
 
 
-                {% endfor %}
+                <!-- Modal Add Books-->
 
-                {% endif %}
-                {% endwith %}
 
-                <table class="table table-hover table-dark">
+                <div id="mymodal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
 
-                    <tr>
+                                <h4 class="modal-title">Dodaj książkę</h4>
+                            </div>
+                            <div class="modal-body">
 
-                        <th>ID</th>
-                        <th>Tytuł</th>
-                        <th>Autor</th>
-                        <th>Ilość stron</th>
-                        <th>Akcja</th>
+                                <form action="{{ url_for('add_book') }}" method="POST">
 
-                    </tr>
 
+                                    <div class="form-group">
 
+                                        <label>Tytuł:</label>
+                                        <input type="text" class="form-control" name="title" required="1">
 
 
-                    {% for row in books%}
-                    <tr>
-                        <td>{{row.id}}</td>
-                        <td>{{row.title}}</td>
-                        <td>{{row.author.author_name}}</td>
-                        <td>{{row.pages}}</td>
+                                    </div>
 
-                        <td>
-                            <a href="/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Edytuj</a>
-                            <a href="/delete/{{row.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Czy na pewno chcesz skasować ?')">Kasuj</a>
 
+                                    <div class="form-group">
 
-                        </td>
 
-                    </tr>
+                                        <label>Autor:</label>
+                                        <input type="text" class="form-control" name="author_name" required="1">
 
 
-                  <!-- Modal Edit Books-->
-<div id="modaledit{{row.id}}" class="modal fade" role="dialog">
-   <div class="modal-dialog">
+                                    </div>
 
+                                    <div class="form-group">
 
-      <div class="modal-content">
+                                        <label>Wydwnictwo:</label>
+                                        <input type="text" class="form-control" name="publisher_name" required="1">
 
 
-         <div class="modal-header">
+                                    </div>
 
 
-            <h4 class="modal-title">Informacja edycji</h4>
+                                    <div class="form-group">
 
 
-         </div>
+                                        <label>Ilość stron:</label>
+                                        <input type="number" class="form-control" name="pages" required="1">
 
 
-         <div class="modal-body">
+                                    </div>
 
 
-            <form action="{{url_for('update_book')}}" method="POST">
+                                    <div class="form-group">
 
 
-               <div class="form-group">
+                                        <button class="btn btn-primary" type="submit">Dodaj książkę</button>
 
 
-                  <label>Tytuł:</label>
-                   <input type="hidden"  name="id" value="{{row.id}}">
+                                    </div>
 
-                   <input type="text" class="form-control" name="title" value="{{row.title}}">
 
+                                </form>
 
 
+                            </div>
 
 
+                            <div class="modal-footer">
 
-               </div>
 
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
 
 
-               <div class="form-group">
+                            </div>
 
 
-                  <label>Autor:</label>
+                        </div>
 
-                  <input type="text" class="form-control" name="author_name" value="{{row.author.author_name}}">
 
+                    </div>
 
-               </div>
 
-
-               <div class="form-group">
-
-
-                  <label>Ilość stron:</label>
-
-                  <input type="number" class="form-control" name="pages" value="{{row.pages}}">
-
-
-               </div>
-
-
-               <div class="form-group">
-
-
-                  <button class="btn btn-primary" type="submit">Edytuj</button>
-
-
-               </div>
-
-
-            </form>
-
-
-         </div>
-
-
-         <div class="modal-footer">
-
-
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
-
-
-         </div>
-
-
-      </div>
-
-
-   </div>
-
-</div>
-
-
-                    {% endfor %}
-
-
-
-                </table>
+                </div>
 
 
             </div>
 
-
-
-                  <!-- Modal Add Books-->
-
-
-<div id="mymodal" class="modal fade" role="dialog">
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-
-            <h4 class="modal-title">Dodaj książkę</h4>
-         </div>
-         <div class="modal-body">
-
-            <form action="{{url_for('add_book')}}" method="POST">
-
-
-               <div class="form-group">
-
-                  <label>Tytuł:</label>
-                  <input type="text" class="form-control" name="title" required="1">
-
-
-               </div>
-
-
-                <div class="form-group">
-
-
-                  <label>Autor:</label>
-                  <input type="text" class="form-control" name="author_name" required="1">
-
-
-               </div>
-
-
-                <div class="form-group">
-
-
-                  <label>Ilość stron:</label>
-                  <input type="number" class="form-control" name="pages" required="1">
-
-
-               </div>
-
-
-
-               <div class="form-group">
-
-
-                  <button class="btn btn-primary" type="submit">Dodaj książkę</button>
-
-
-               </div>
-
-
-            </form>
-
-
-         </div>
-
-
-         <div class="modal-footer">
-
-
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
-
-
-         </div>
-
-
-      </div>
-
-
-   </div>
-
-
-</div>
-
-
-
-
-
         </div>
 
+
     </div>
-
-
-</div>
 
 
 {% endblock %}
