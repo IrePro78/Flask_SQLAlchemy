@@ -18,7 +18,7 @@ class Book(db.Model):
     publisher_id = db.Column(db.Integer, db.ForeignKey('publishers.id'), nullable=False)
     pages = db.Column(db.Integer, nullable=False)
     date_published = db.Column(db.Date)
-    cover_type = db.Column(db.Boolean)
+    cover_type = db.Column(db.String)
     author = db.relationship("Author", backref='book')
     publisher = db.relationship('Publisher', backref='book')
 

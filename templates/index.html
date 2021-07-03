@@ -20,11 +20,12 @@
                                 data-toggle="modal" data-target="#mymodal"> Dodaj nową książkę
                         </button>
                         <button type="button" class="btn btn-outline-secondary float-right mr-1"
-                                data-toggle="modal" data-target="#mymodal">Pokaż książki
+                                data-toggle="modal" data-target="#mymodal"> Autorzy
                         </button>
                         <button type="button" class="btn btn-outline-secondary float-right mr-1"
-                                data-toggle="modal" data-target="#mymodal"> Pokaż autorów
+                                data-toggle="modal" data-target="#mymodal">Książki
                         </button>
+
                     </h2>
 
 
@@ -62,7 +63,7 @@
                             <th>Wydawnictwo</th>
                             <th>Ilość stron</th>
                             <th>Data wydania</th>
-                            <th>Rodzaj okładki</th>
+                            <th>Rodzaj oprawy</th>
                             <th>Akcja</th>
 
                         </tr>
@@ -176,10 +177,13 @@
                                                 <div class="form-group">
 
 
-                                                    <label>Rodzaj okładki:</label>
+                                                    <label>Rodzaj oprawy:</label>
 
-                                                    <input type="text" class="form-control" name="cover_type"
-                                                           value="{{ row.cover_type }}">
+
+                                                        <select name="cover_type">
+                                                            <option value="twarda">twarda</option>
+                                                            <option value="miękka">miękka</option>
+                                                        </select>
 
 
                                                 </div>
@@ -288,11 +292,10 @@
 
                                     <div class="form-group">
 
-                                        <label>Rodzaj okładki:</label>
-{#                                        <input type="date" class="form-control" name="cover_type" required="1">#}
+                                        <label>Rodzaj oprawy:</label>
                                         <select name="cover_type">
-                                          <option value="Twarda">Twarda</option>
-                                          <option value="Miękka">Miękka</option>
+                                          <option value="twarda">twarda</option>
+                                          <option value="miękka">miękka</option>
                                         </select>
 
                                     </div>
