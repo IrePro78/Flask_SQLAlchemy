@@ -29,4 +29,4 @@ class Publisher(db.Model):
     publisher_name = db.Column(db.String(255))
     # books = db.relationship('Book', backref='publisher')
 
-db.create_all()
+# db.create_all()

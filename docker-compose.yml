@@ -4,20 +4,22 @@ services:
     container_name: flask_app
     build: .
     ports:
-    - "5000:5000"
+      - "5000:5000"
     environment:
+      - FLASK_RUN_EXTRA_FILES="app/templates/index.html"
+      - FLASK_ENV=development
       - FLASK_DEBUG=1
-      - FLASK_APP=app.py
+#      - FLASK_APP=app.py
     volumes:
-    - .:/app
+      - .:/app
   db:
     image: "postgres"
     container_name: postgres_db
     ports:
-    - "5432:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_DB=Flask_DB
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=admin123
     volumes:
-    - ./data/db:/var/lib/postgresql/data
+      - ./data/db:/var/lib/postgresql/data
