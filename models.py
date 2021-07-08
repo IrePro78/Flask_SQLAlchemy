@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from config import app
 
+
 db = SQLAlchemy(app)
 
 class Author(db.Model):
@@ -8,6 +9,7 @@ class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author_name = db.Column(db.String(255))
     # books = db.relationship('Book', backref='author')
+
 
 
 class Book(db.Model):
@@ -29,4 +31,5 @@ class Publisher(db.Model):
     publisher_name = db.Column(db.String(255))
     # books = db.relationship('Book', backref='publisher')
 
-# db.create_all()
+
+db.create_all()
