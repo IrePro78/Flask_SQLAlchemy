@@ -1,11 +1,17 @@
 from mod_auth.controlers import login, register
+from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 
 
 app = Flask(__name__)
 
+from config import app
+
+db = SQLAlchemy(app)
 
 from views import books
+
+
 
 #api urls
 app.add_url_rule('/', view_func=books.index, methods=['GET'])

@@ -1,8 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
-from config import app
+from sqlalchemy import func
+from app import db
 
-
-db = SQLAlchemy(app)
 
 class Author(db.Model):
     __tablename__ = 'authors'
@@ -30,6 +28,17 @@ class Publisher(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     publisher_name = db.Column(db.String(255))
     # books = db.relationship('Book', backref='publisher')
+
+
+class User(db.Model):
+    __tablename__ = 'auth_user'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.Text, nullable=False)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    created_at = db.Column(db.DateTime, server_default=func.now())
+    updated_at = db.Column(db.DateTime, server_default=func.now())
 
 
 db.create_all()
