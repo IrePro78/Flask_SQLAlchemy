@@ -1,4 +1,3 @@
-from mod_auth.controlers import login, register
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 
@@ -10,6 +9,7 @@ from config import app
 db = SQLAlchemy(app)
 
 from views import books
+from mod_auth.controlers import login, register
 
 
 
@@ -21,8 +21,8 @@ app.add_url_rule('/delete/<id>', view_func=books.delete_book, methods=['GET', 'P
 
 
 #Logowanie i rejestracja
-app.add_url_rule('/login', view_func=login)
-app.add_url_rule('/register', view_func=register)
+app.add_url_rule('/login', view_func=login, methods=['POST'])
+app.add_url_rule('/register', view_func=register, methods=['GET', 'POST'])
 
 
 if __name__ == '__main__':
