@@ -5,7 +5,7 @@ from views import authors, publishers
 
 def index():
     all_books = Book.query.order_by(Book.id).all()
-    return render_template('header.html', books=all_books)
+    return render_template('index.html', books=all_books)
 
 
 def add_book():
