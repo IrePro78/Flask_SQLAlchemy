@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import db
-# from mod_auth.forms import RegisterForm
+from mod_auth.forms import RegisterForm, LoginForm
 from models import User
 from hashlib import pbkdf2_hmac
 
@@ -9,7 +9,9 @@ from hashlib import pbkdf2_hmac
 
 def login():
     salt = 'qwer42b#$ewrweede'
-    if request.method == 'POST':
+    form = LoginForm(request.form)
+
+    if request.method == 'POST' and form.validate():
         username = request.form['username']
         user = User.query.filter_by(username=username).first()
         crypted_pass = user.password
@@ -19,16 +21,20 @@ def login():
         print(request.form['password'])
         print(crypted_pass)
         print(hashed_password)
+        quit()
         return redirect(url_for('index'))
+    return render_template('login.html', form=form)
+
 
 
 def register():
-    salt ='qwer42b#$ewrweede'
-    # req = request.form
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        email = request.form['email']
+    salt = 'qwer42b#$ewrweede'
+    form = RegisterForm(request.form)
+
+    if request.method == 'POST' and form.validate():
+        username = form.username.data
+        password = form.password.data
+        email = form.email.data
         hashed_password = pbkdf2_hmac('sha256', password.encode('utf8'), salt.encode('utf8'), 999).hex()
         new_user = User(username=username, password=hashed_password, email=email)
         db.session.add(new_user)
@@ -36,4 +42,8 @@ def register():
         flash('Użtkownik dodany poprawnie')
         return redirect(url_for('index'))
 
-    return render_template('header.html', form='new_user')
+    return render_template('login.html', form=form)
+
+
+
+

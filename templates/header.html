@@ -1,188 +1,188 @@
-{% extends 'base.html' %}
+<!--&lt;!&ndash;{% extends 'base.html' %}&ndash;&gt;-->
 
 
 
-{% block title %} Flask CRUD {% endblock %}
+<!--{% block title %} Flask CRUD {% endblock %}-->
 
 
-{% block content %}
-    <div class="well text-center">
-        <h3>
-        <table class="table table-hover table-dark">
+<!--{% block content %}-->
+<!--    <div class="well text-center">-->
+<!--        <h3>-->
+<!--        <table class="table table-hover table-dark">-->
 
 
-            <tr>
+<!--            <tr>-->
 
-                <th>Aby wejść musisz być zalogowany</th>
+<!--                <th>Aby wejść musisz być zalogowany</th>-->
 
-            </tr>
+<!--            </tr>-->
 
-        </table>
-         </h3>
-    </div>
-{% endblock %}
+<!--        </table>-->
+<!--         </h3>-->
+<!--    </div>-->
+<!--{% endblock %}-->
 
-{% block body %}
+<!--{% block body %}-->
 
-        <div class="jumbotron p-3">
-            <div class="well text-center">
+<!--        <div class="jumbotron p-3">-->
+<!--            <div class="well text-center">-->
 
-                <h1>Projekt [Python, Flask, SQLAlchemy, CRUD, WEB APP]
-                 <button type="button" class="btn btn-outline-secondary float-right"
-                 data-toggle="modal" data-target="#modal_register"> Rejestracja
-                 </button>
-                 <button type="button" class="btn btn-outline-secondary float-right mr-1"
-                 data-toggle="modal" data-target="#modal_login"> Zaloguj
-                 </button>
+<!--                <h1>Projekt [Python, Flask, SQLAlchemy, CRUD, WEB APP]-->
+<!--                 <button type="button" class="btn btn-outline-secondary float-right"-->
+<!--                 data-toggle="modal" data-target="#modal_register"> Rejestracja-->
+<!--                 </button>-->
+<!--                 <button type="button" class="btn btn-outline-secondary float-right mr-1"-->
+<!--                 data-toggle="modal" data-target="#modal_login"> Zaloguj-->
+<!--                 </button>-->
 
-                </h1>
+<!--                </h1>-->
 
 
-            </div>
+<!--            </div>-->
 
 
-        </div>
+<!--        </div>-->
 
 
-<!-- Modal Add Users-->
+<!--&lt;!&ndash; Modal Add Users&ndash;&gt;-->
 
 
-                <div id="modal_register" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
+<!--                <div id="modal_register" class="modal fade" role="dialog">-->
+<!--                    <div class="modal-dialog">-->
+<!--                        <div class="modal-content">-->
+<!--                            <div class="modal-header">-->
 
-                                <h4 class="modal-title">Rejestracja</h4>
-                            </div>
-                            <div class="modal-body">
+<!--                                <h4 class="modal-title">Rejestracja</h4>-->
+<!--                            </div>-->
+<!--                            <div class="modal-body">-->
 
-                                <form action="{{ url_for('register') }}" method="POST">
+<!--                                <form action="{{ url_for('register') }}" method="POST">-->
 
 
-                                    <div class="form-group">
+<!--                                    <div class="form-group">-->
 
-                                        <label>Nazwa użytkownika:</label>
-                                        <input type="text" class="form-control" name="username" required="1">
+<!--                                        <label>Nazwa użytkownika:</label>-->
+<!--                                        <input type="text" class="form-control" name="username" required="1">-->
 
 
-                                    </div>
+<!--                                    </div>-->
 
 
-                                    <div class="form-group">
+<!--                                    <div class="form-group">-->
 
 
-                                        <label>Hasło:</label>
-                                        <input type="password" class="form-control" name="password" required="1">
+<!--                                        <label>Hasło:</label>-->
+<!--                                        <input type="password" class="form-control" name="password" required="1">-->
 
 
-                                    </div>
+<!--                                    </div>-->
 
-                                    <div class="form-group">
+<!--                                    <div class="form-group">-->
 
-                                        <label>email:</label>
-                                        <input type="text" class="form-control" name="email" required="1">
+<!--                                        <label>email:</label>-->
+<!--                                        <input type="text" class="form-control" name="email" required="1">-->
 
 
-                                    </div>
+<!--                                    </div>-->
 
 
-                                    <div class="form-group">
+<!--                                    <div class="form-group">-->
 
 
-                                        <button class="btn btn-primary" type="submit">Rejestruj</button>
+<!--                                        <button class="btn btn-primary" type="submit">Rejestruj</button>-->
 
 
-                                    </div>
+<!--                                    </div>-->
 
 
-                                </form>
+<!--                                </form>-->
 
 
-                            </div>
+<!--                            </div>-->
 
 
-                            <div class="modal-footer">
+<!--                            <div class="modal-footer">-->
 
 
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+<!--                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>-->
 
 
-                            </div>
+<!--                            </div>-->
 
 
-                        </div>
+<!--                        </div>-->
 
 
-                    </div>
+<!--                    </div>-->
 
 
-                </div>
+<!--                </div>-->
 
 
-<!-- Modal Login Users-->
+<!--&lt;!&ndash; Modal Login Users&ndash;&gt;-->
 
 
-                <div id="modal_login" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
+<!--                <div id="modal_login" class="modal fade" role="dialog">-->
+<!--                    <div class="modal-dialog">-->
+<!--                        <div class="modal-content">-->
+<!--                            <div class="modal-header">-->
 
-                                <h4 class="modal-title">Zaloguj</h4>
-                            </div>
-                            <div class="modal-body">
+<!--                                <h4 class="modal-title">Zaloguj</h4>-->
+<!--                            </div>-->
+<!--                            <div class="modal-body">-->
 
-                                <form action="{{ url_for('login') }}" method="POST">
+<!--                                <form action="{{ url_for('login') }}" method="POST">-->
 
 
-                                    <div class="form-group">
+<!--                                    <div class="form-group">-->
 
-                                        <label>Nazwa użytkownika:</label>
-                                        <input type="text" class="form-control" name="username" required="1">
+<!--                                        <label>Nazwa użytkownika:</label>-->
+<!--                                        <input type="text" class="form-control" name="username" required="1">-->
 
 
-                                    </div>
+<!--                                    </div>-->
 
 
-                                    <div class="form-group">
+<!--                                    <div class="form-group">-->
 
 
-                                        <label>Hasło:</label>
-                                        <input type="text" class="form-control" name="password" required="1">
+<!--                                        <label>Hasło:</label>-->
+<!--                                        <input type="text" class="form-control" name="password" required="1">-->
 
 
-                                    </div>
+<!--                                    </div>-->
 
-                                    <div class="form-group">
+<!--                                    <div class="form-group">-->
 
 
-                                        <button class="btn btn-primary" type="submit">Zaloguj</button>
+<!--                                        <button class="btn btn-primary" type="submit">Zaloguj</button>-->
 
 
-                                    </div>
+<!--                                    </div>-->
 
 
-                                </form>
+<!--                                </form>-->
 
 
-                            </div>
+<!--                            </div>-->
 
 
-                            <div class="modal-footer">
+<!--                            <div class="modal-footer">-->
 
 
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+<!--                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>-->
 
 
-                            </div>
+<!--                            </div>-->
 
 
-                        </div>
+<!--                        </div>-->
 
 
-                    </div>
+<!--                    </div>-->
 
 
-                </div>
+<!--                </div>-->
 
 
-{% endblock %}
+<!--{% endblock %}-->
