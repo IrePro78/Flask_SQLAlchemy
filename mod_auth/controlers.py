@@ -23,7 +23,7 @@ def login():
         print(hashed_password)
         quit()
         return redirect(url_for('index'))
-    flash('Proszę wprowadzić poprawne dane')
+    # flash('Proszę wprowadzić poprawne dane')
     return render_template('login.html', form=form)
 
 
@@ -41,9 +41,8 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         flash('Użtkownik dodany poprawnie')
-        return redirect(url_for('index'))
-    flash('Proszę wprowadzić poprawne dane')
-    return render_template('login.html', form=form)
+        return redirect(url_for('/'))
+    # return render_template('index.html', form=form)
 
 
 
