@@ -13,7 +13,7 @@ def login():
     form = LoginForm(request.form)
     print(form.validate())
 
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         username = request.form['username']
         user = User.query.filter_by(username=username).first()
         crypted_pass = user.password
@@ -24,8 +24,8 @@ def login():
             login_user(user)
             flash('Zostałeś pomyślnie zalogowany')
             return redirect(url_for('index'))
-        else:
-            abort(400)
+        # else:
+        #     abort(400)
     return render_template('login.html', form=form)
 
 
@@ -33,7 +33,6 @@ def login():
 def register():
     salt = 'qwer42b#$ewrweede'
     form = RegisterForm(request.form)
-    print(form.validate())
 
     if request.method == 'POST' and form.validate():
         username = form.username.data

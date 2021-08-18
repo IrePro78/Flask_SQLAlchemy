@@ -23,7 +23,7 @@ from mod_auth import controlers
 
 
 #api urls
-app.add_url_rule('/view-books', view_func=books.index, methods=['GET'])
+app.add_url_rule('/home', view_func=books.index, methods=['GET'])
 app.add_url_rule('/add-book', view_func=books.add_book, methods=['POST'])
 app.add_url_rule('/update-book', view_func=books.update_book, methods=['GET', 'POST'])
 app.add_url_rule('/delete/<id>', view_func=books.delete_book, methods=['GET', 'POST'])
