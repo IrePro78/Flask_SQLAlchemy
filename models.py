@@ -1,4 +1,5 @@
 from sqlalchemy import func
+from flask_login import UserMixin
 from app import db
 
 
@@ -23,6 +24,8 @@ class Book(db.Model):
     publisher = db.relationship('Publisher', backref='book')
 
 
+
+
 class Publisher(db.Model):
     __tablename__ = 'publishers'
     id = db.Column(db.Integer, primary_key=True)
@@ -30,7 +33,9 @@ class Publisher(db.Model):
     # books = db.relationship('Book', backref='publisher')
 
 
-class User(db.Model):
+
+
+class User(UserMixin, db.Model):
     __tablename__ = 'auth_user'
 
     id = db.Column(db.Integer, primary_key=True)
