@@ -11,7 +11,6 @@ from flask_login import login_user
 def login():
     salt = 'qwer42b#$ewrweede'
     form = LoginForm(request.form)
-    print(form.validate())
 
     if request.method == 'POST' and form.validate():
         username = request.form['username']
@@ -22,10 +21,10 @@ def login():
 
         if crypted_pass == hashed_password:
             login_user(user)
-            flash('Zostałeś pomyślnie zalogowany')
+            flash('Zostałeś pomyślnie zalogowany', 'error')
             return redirect(url_for('index'))
-        # else:
-        #     abort(400)
+        else:
+            abort(400)
     return render_template('login.html', form=form)
 
 
@@ -42,9 +41,10 @@ def register():
         new_user = User(username=username, password=hashed_password, email=email)
         db.session.add(new_user)
         db.session.commit()
-        flash('Użtkownik dodany poprawnie')
+        flash('Rejestracja przebiegła pomyślnie, teraz możesz się zalogować')
         return redirect(url_for('login'))
-
+    else:
+        flash('Rejestracja nie udana, proszę spróbować ponownie ')
     return render_template('register.html', form=form)
 
 
