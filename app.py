@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_bcrypt import Bcrypt
+from flask_migrate import Migrate
 from flask import Flask
 
 
@@ -8,13 +10,17 @@ app = Flask(__name__)
 from config import app
 
 db = SQLAlchemy(app)
-
-login_manager = LoginManager()
-login_manager.init_app(app)
+login = LoginManager(app)
+login.login_view = 'controlers.login'
+bcrypt = Bcrypt(app)
 
 from models import User
 
-@login_manager.user_loader
+
+migrate = Migrate()
+migrate.init_app(app, db)
+
+@login.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
