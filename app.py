@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_bcrypt import Bcrypt
-from flask_migrate import Migrate
+# from flask_bcrypt import Bcrypt
+# from flask_migrate import Migrate
 from flask import Flask
 
 
@@ -11,14 +11,11 @@ from config import app
 
 db = SQLAlchemy(app)
 login = LoginManager(app)
-login.login_view = 'controlers.login'
-bcrypt = Bcrypt(app)
+login.login_view = 'login'
+
 
 from models import User
 
-
-migrate = Migrate()
-migrate.init_app(app, db)
 
 @login.user_loader
 def load_user(user_id):
@@ -36,8 +33,10 @@ app.add_url_rule('/delete/<id>', view_func=books.delete_book, methods=['GET', 'P
 
 
 #Logowanie i rejestracja
-app.add_url_rule('/login', view_func=controlers.login, methods=['GET', 'POST'])
 app.add_url_rule('/register', view_func=controlers.register, methods=['GET', 'POST'])
+app.add_url_rule('/login', view_func=controlers.login, methods=['GET', 'POST'])
+app.add_url_rule('/logout', view_func=controlers.logout, methods=['GET', 'POST'])
+app.add_url_rule('/profile', view_func=controlers.user_profile, methods=['GET', 'POST'])
 
 
 if __name__ == '__main__':
