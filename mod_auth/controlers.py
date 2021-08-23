@@ -1,7 +1,7 @@
+from flask_login import login_user, current_user, login_required, logout_user
 from flask import render_template, flash, redirect, url_for, request
 from mod_auth.forms import RegisterForm, LoginForm
 from sqlalchemy.exc import IntegrityError
-from flask_login import login_user, current_user, login_required, logout_user
 from hashlib import pbkdf2_hmac
 from models import User
 from app import db
@@ -11,7 +11,7 @@ from app import db
 
 def login():
     if current_user.is_authenticated:
-        flash('Jesteś już zalogowany!')
+        flash('Jesteś już zalogowany!', 'info')
         return redirect(url_for('index'))
 
     salt = 'qwer42b#$ewrweede'
@@ -21,20 +21,19 @@ def login():
         if form.validate():
             username = request.form['username']
             user = User.query.filter_by(username=username).first()
-            crypted_pass = user.password
             password = request.form['password']
             hashed_password = pbkdf2_hmac('sha256', password.encode('utf8'), salt.encode('utf8'), 999).hex()
-            if crypted_pass == hashed_password:
+            if user and user.password == hashed_password:
                 login_user(user, remember=form.remember_me)
-                flash(f'Dziękuję za zalogowanie {current_user.username}!')
+                flash(f'Dziękuję za zalogowanie {current_user.username}!', 'success')
                 return redirect(url_for('index'))
-            flash('Bład! Nieprawidłowe dane logowania', 'error')
+            flash('Bład! Nieprawidłowe dane logowania', 'danger')
     return render_template('login.html', form=form)
 
 @login_required
 def logout():
     logout_user()
-    flash(f'Do widzenia! ')
+    flash('Do zobaczenia! ', 'info')
     return redirect(url_for('login'))
 
 
@@ -52,13 +51,14 @@ def register():
               new_user = User(username=username, password=hashed_password, email=email)
               db.session.add(new_user)
               db.session.commit()
-              flash(f'Dziękuję za rejestrację, {new_user.username}')
+              flash(f'Dziękuję za rejestrację, {new_user.username}', 'success')
               return redirect(url_for('login'))
           except IntegrityError:
               db.session.rollback()
-              flash(f'Błąd! Email ({new_user.email}) już istnieje w bazie danych. ', 'error')
+              flash(f'Użytkownik ({new_user.username}) lub email ({new_user.email})'
+                    f' już istnieje w bazie danych. ', 'warning')
       else:
-          flash(' Wprowadzono błędne dane !', 'error')
+          flash(' Wprowadzono błędne dane !', 'danger')
 
     return render_template('register.html', form=form)
 

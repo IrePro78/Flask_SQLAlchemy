@@ -28,7 +28,7 @@ def add_book():
         )
         db.session.add(new_book)
         db.session.commit()
-        flash('Książka dodana poprawnie')
+        flash('Książka dodana poprawnie', 'success')
         return redirect(url_for('index'))
 
 @login_required
@@ -45,7 +45,7 @@ def update_book():
         book.date_published = request.form['date_published']
         book.cover_type = request.form['cover_type']
         db.session.commit()
-        flash('Edycja powiodła się')
+        flash('Edycja powiodła się', 'success')
         return redirect(url_for('index'))
 
 @login_required
@@ -53,6 +53,6 @@ def delete_book(id):
     book = Book.query.get(id)
     db.session.delete(book)
     db.session.commit()
-    flash('Książka skasowana')
+    flash('Książka skasowana', 'warning')
 
     return redirect(url_for('index'))
