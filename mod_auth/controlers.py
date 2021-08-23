@@ -34,7 +34,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('Do widzenia!')
+    flash(f'Do widzenia! ')
     return redirect(url_for('login'))
 
 
@@ -58,7 +58,7 @@ def register():
               db.session.rollback()
               flash(f'Błąd! Email ({new_user.email}) już istnieje w bazie danych. ', 'error')
       else:
-          flash(' Wprowadzono błędne dane !')
+          flash(' Wprowadzono błędne dane !', 'error')
 
     return render_template('register.html', form=form)
 

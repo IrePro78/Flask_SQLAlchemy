@@ -1,15 +1,15 @@
 from flask import render_template, request, redirect, url_for, flash
-
+from flask_login import login_required
 
 from models import Book, Author, db, Publisher
 from views import authors, publishers
 
-
+@login_required
 def index():
     all_books = Book.query.order_by(Book.id).all()
     return render_template('index.html', books=all_books)
 
-
+@login_required
 def add_book():
     if request.method == 'POST':
         title = request.form['title']
@@ -31,7 +31,7 @@ def add_book():
         flash('Książka dodana poprawnie')
         return redirect(url_for('index'))
 
-
+@login_required
 def update_book():
     if request.method == 'POST':
         book = Book.query.get(request.form.get('id'))
@@ -48,7 +48,7 @@ def update_book():
         flash('Edycja powiodła się')
         return redirect(url_for('index'))
 
-
+@login_required
 def delete_book(id):
     book = Book.query.get(id)
     db.session.delete(book)
