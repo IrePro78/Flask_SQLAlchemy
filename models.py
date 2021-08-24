@@ -1,3 +1,4 @@
+from flask import current_app
 from sqlalchemy import func
 from flask_login import UserMixin
 from app import db, fbcrypt
@@ -48,7 +49,8 @@ class User(UserMixin, db.Model):
     def __init__(self, username: str, password_plaintext: str, email: str):
         self.email = email
         self.username = username
-        self.password = fbcrypt.generate_password_hash(password_plaintext).decode('utf-8')
+        self.password = fbcrypt.generate_password_hash(
+             password_plaintext).decode('utf-8')
 
 
 
