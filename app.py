@@ -1,3 +1,4 @@
+# from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 # from flask_bcrypt import Bcrypt
@@ -12,7 +13,8 @@ from config import app
 db = SQLAlchemy(app)
 login = LoginManager(app)
 login.login_view = 'login'
-
+login.login_message = 'Zaloguj się, aby uzyskać dostęp do tej strony.'
+login.login_message_category = 'info'
 
 from models import User
 
@@ -21,12 +23,13 @@ from models import User
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-from views import books
+from views import books, authors, publishers
 from mod_auth import controlers
 
 
 #api urls
 app.add_url_rule('/home', view_func=books.index, methods=['GET'])
+app.add_url_rule('/home', view_func=authors.index_authors, methods=['GET'])
 app.add_url_rule('/add-book', view_func=books.add_book, methods=['GET', 'POST'])
 app.add_url_rule('/update-book', view_func=books.update_book, methods=['GET', 'POST'])
 app.add_url_rule('/delete/<id>', view_func=books.delete_book, methods=['GET', 'POST'])
