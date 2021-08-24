@@ -11,6 +11,7 @@ app = Flask(__name__)
 from config import app
 
 db = SQLAlchemy(app)
+
 login = LoginManager(app)
 login.login_view = 'login'
 login.login_message = 'Zaloguj się, aby uzyskać dostęp do tej strony.'
