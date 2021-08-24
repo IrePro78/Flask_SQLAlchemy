@@ -14,17 +14,17 @@ def login():
         flash('Jesteś już zalogowany!', 'info')
         return redirect(url_for('index'))
 
-    salt = 'qwer42b#$ewrweede'
+    # salt = 'qwer42b#$ewrweede'
     form = LoginForm(request.form)
 
     if request.method == 'POST':
         if form.validate():
-            username = request.form['username']
-            user = User.query.filter_by(username=username).first()
-            password = request.form['password']
-            hashed_password = pbkdf2_hmac('sha256', password.encode('utf8'), salt.encode('utf8'), 999).hex()
-            if user and user.password == hashed_password:
-                login_user(user, remember=form.remember_me)
+            # username = form.username.data
+            user = User.query.filter_by(username=form.username.data).first()
+            # password = form.username.data
+            # hashed_password = pbkdf2_hmac('sha256', password.encode('utf8'), salt.encode('utf8'), 999).hex()
+            if user and user.is_password_correct(form.password.data):
+                login_user(user, remember=form.remember_me.data)
                 flash(f'Dziękuję za zalogowanie {current_user.username}!', 'success')
                 return redirect(url_for('index'))
             flash('Bład! Nieprawidłowe dane logowania', 'danger')
@@ -38,24 +38,24 @@ def logout():
 
 
 def register():
-    salt = 'qwer42b#$ewrweede'
+    # salt = 'qwer42b#$ewrweede'
     form = RegisterForm(request.form)
 
     if request.method == 'POST':
       if form.validate():
           try:
-              username = form.username.data
-              password = form.password.data
-              email = form.email.data
-              hashed_password = pbkdf2_hmac('sha256', password.encode('utf8'), salt.encode('utf8'), 999).hex()
-              new_user = User(username=username, password=hashed_password, email=email)
+              # username = form.username.data
+              # password = form.password.data
+              # email = form.email.data
+              # hashed_password = pbkdf2_hmac('sha256', password.encode('utf8'), salt.encode('utf8'), 999).hex()
+              new_user = User(form.username.data, form.password.data, form.email.data)
               db.session.add(new_user)
               db.session.commit()
               flash(f'Dziękuję za rejestrację, {new_user.username}', 'success')
               return redirect(url_for('login'))
           except IntegrityError:
               db.session.rollback()
-              flash(f'Użytkownik ({new_user.username}) lub email ({new_user.email})'
+              flash(f'Użytkownik ({form.username.data}) lub email ({form.email.data})'
                     f' już istnieje w bazie danych. ', 'warning')
       else:
           flash(' Wprowadzono błędne dane !', 'danger')
