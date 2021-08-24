@@ -1,7 +1,13 @@
-from flask import request
+from flask import request, render_template
 from flask_login import login_required
 
 from models import Publisher, db
+
+@login_required
+def index_publishers():
+    all_publishers = Publisher.query.order_by(Publisher.id).all()
+    return render_template('index.html', books=all_publishers)
+
 
 
 @login_required
