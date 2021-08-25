@@ -1,6 +1,8 @@
 from flask import current_app
 from sqlalchemy import func
 from flask_login import UserMixin
+
+
 from app import db, fbcrypt
 
 

@@ -1,10 +1,12 @@
+from logging.handlers import RotatingFileHandler
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+# from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 # from flask_mail import Mail
-# from flask_migrate import Migrate
 from flask import Flask
+import logging
 
 
 app = Flask(__name__)
@@ -15,7 +17,20 @@ db = SQLAlchemy(app)
 #Migracja db
 # db_migration = Migrate()
 
-#Logowanie
+
+#Logi
+file_handler = RotatingFileHandler('logs/flask-books-library-app.log',
+                                   maxBytes=16384,
+                                   backupCount=20)
+file_formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s [%(funcName)s in %(filename)s:%(lineno)d]')
+file_handler.setFormatter(file_formatter)
+file_handler.setLevel(logging.INFO)
+app.logger.addHandler(file_handler)
+
+#Logger
+app.logger.info('Uruchamianie aplikacji Flask Books Library App... ')
+
+#Logowanie użutkowników
 login = LoginManager(app)
 login.login_view = 'login'
 login.login_message = 'Zaloguj się, aby uzyskać dostęp do tej strony.'
@@ -26,6 +41,7 @@ fbcrypt = Bcrypt(app)
 
 #Ochrona CSRF
 csrf = CSRFProtect(app)
+
 
 from models import User
 
@@ -39,7 +55,7 @@ from mod_auth import controlers
 
 
 #api urls
-app.add_url_rule('/home', view_func=books.index, methods=['GET'])
+app.add_url_rule('/', view_func=books.index, methods=['GET'])
 app.add_url_rule('/home', view_func=authors.index_authors, methods=['GET'])
 app.add_url_rule('/home', view_func=publishers.index_publishers, methods=['GET'])
 app.add_url_rule('/add-book', view_func=books.add_book, methods=['GET', 'POST'])

@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash
-from flask_login import login_required
-
+from flask_login import login_required, current_user
+from app import app
 from models import Book, Author, db, Publisher
 from views import authors, publishers
 
@@ -29,6 +29,7 @@ def add_book():
         db.session.add(new_book)
         db.session.commit()
         flash('Książka dodana poprawnie', 'success')
+        app.logger.info(f"Added new book: ({request.form['title']})!")
         return redirect(url_for('index'))
 
 @login_required
@@ -46,6 +47,7 @@ def update_book():
         book.cover_type = request.form['cover_type']
         db.session.commit()
         flash('Edycja powiodła się', 'success')
+        app.logger.info(f"Updated book: ({book.title}) by user: {current_user.username} !")
         return redirect(url_for('index'))
 
 @login_required
@@ -54,5 +56,5 @@ def delete_book(id):
     db.session.delete(book)
     db.session.commit()
     flash('Książka skasowana', 'warning')
-
+    app.logger.info(f"Book removed: ({book.title}) by user: {current_user.username} !")
     return redirect(url_for('index'))
