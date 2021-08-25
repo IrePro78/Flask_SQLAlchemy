@@ -11,8 +11,8 @@
     <h3>
     <p>Użytkownik: ** {{ current_user.username }} **</p>
     <p>Email: ** {{ current_user.email }} **</p>
-    <p>Zarejestrowany {{ current_user.created_at.strftime("%d/%m/%Y, %H:%M:%S") }}</p>
-    <p>Ostatnia edycja {{ current_user.updated_at.strftime("%d/%m/%Y, %H:%M:%S") }}</p>
+    <p>Zarejestrowany {{ current_user.registered_on.strftime("%d/%m/%Y, %H:%M:%S") }}</p>
+    <p>Ostatnia edycja {{ current_user.updated_on.strftime("%d/%m/%Y, %H:%M:%S") }}</p>
 
     </h3>
   </div>

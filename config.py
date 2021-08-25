@@ -9,4 +9,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://app:admin123@db:5432/postg
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-# app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+
+app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'flaskdjangopython@gmail.com'
+app.config['MAIL_PASSWORD'] = '***REMOVED***'
+app.config['MAIL_DEFAULT_SENDER'] = 'admin@gmail.pl'

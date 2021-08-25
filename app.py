@@ -1,12 +1,13 @@
 from logging.handlers import RotatingFileHandler
-from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager
 # from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
-# from flask_mail import Mail
+from flask_mail import Mail
 from flask import Flask
 import logging
+
 
 
 app = Flask(__name__)
@@ -42,6 +43,10 @@ fbcrypt = Bcrypt(app)
 #Ochrona CSRF
 csrf = CSRFProtect(app)
 
+#Mail
+mail = Mail(app)
+
+
 
 from models import User
 
@@ -52,7 +57,6 @@ def load_user(user_id):
 
 from views import books, authors, publishers
 from mod_auth import controlers
-
 
 #api urls
 app.add_url_rule('/', view_func=books.index, methods=['GET'])
@@ -68,6 +72,8 @@ app.add_url_rule('/register', view_func=controlers.register, methods=['GET', 'PO
 app.add_url_rule('/login', view_func=controlers.login, methods=['GET', 'POST'])
 app.add_url_rule('/logout', view_func=controlers.logout, methods=['GET', 'POST'])
 app.add_url_rule('/profile', view_func=controlers.user_profile, methods=['GET', 'POST'])
+app.add_url_rule('/confirm/<token>', view_func=controlers.confirm_email, methods=['GET', 'POST'])
+
 
 
 if __name__ == '__main__':

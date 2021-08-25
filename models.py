@@ -1,8 +1,5 @@
-from flask import current_app
 from sqlalchemy import func
 from flask_login import UserMixin
-
-
 from app import db, fbcrypt
 
 
@@ -45,8 +42,13 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.Text, nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
-    created_at = db.Column(db.DateTime, server_default=func.now())
-    updated_at = db.Column(db.DateTime, server_default=func.now())
+    registered_on = db.Column(db.DateTime, server_default=func.now())
+    updated_on = db.Column(db.DateTime, server_default=func.now())
+    email_confirmation_sent_on = db.Column(db.DateTime)
+    email_confirmed = db.Column(db.Boolean, default=False)
+    email_confirmed_on = db.Column(db.DateTime, default=None)
+
+
 
     def __init__(self, username: str, password_plaintext: str, email: str):
         self.email = email
@@ -56,8 +58,10 @@ class User(UserMixin, db.Model):
 
 
 
+
     def is_password_correct(self, password_plaintext: str):
         return fbcrypt.check_password_hash(self.password, password_plaintext)
+
 
 
 
