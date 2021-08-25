@@ -19,8 +19,11 @@
 
                                 <form action="{{ url_for('login') }}" method="POST">
 
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
                                     <div class="form-group">
+
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
                                         <label>Nazwa użytkownika:</label>
                                         <input type="text" class="form-control" name="username" required="1">
@@ -93,6 +96,7 @@
 
                     <form action="{{ url_for('register') }}" method="POST">
 
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
                         <div class="form-group">
 

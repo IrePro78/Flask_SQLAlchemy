@@ -1,7 +1,8 @@
-# from flask_mail import Mail
+from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+# from flask_mail import Mail
 # from flask_migrate import Migrate
 from flask import Flask
 
@@ -11,13 +12,20 @@ app = Flask(__name__)
 from config import app
 
 db = SQLAlchemy(app)
+#Migracja db
+# db_migration = Migrate()
 
+#Logowanie
 login = LoginManager(app)
 login.login_view = 'login'
 login.login_message = 'Zaloguj się, aby uzyskać dostęp do tej strony.'
 login.login_message_category = 'info'
 
+#Hashowanie hasła
 fbcrypt = Bcrypt(app)
+
+#Ochrona CSRF
+csrf = CSRFProtect(app)
 
 from models import User
 
