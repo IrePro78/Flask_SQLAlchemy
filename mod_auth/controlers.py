@@ -130,7 +130,7 @@ def generate_password_reset_email(user_email):
     password_reset_serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
 
     password_reset_url = url_for('process_password_reset_token',
-                                 token=password_reset_serializer.dumps(user_email, salt='@4Dclkk573$^4!'),
+                                 token=password_reset_serializer.dumps(user_email, salt='@4Dd4%3!*73$^4!'),
                                  _external=True)
 
     return Message(subject='Flask Books Library App - Żądanie zresetowania hasła!',

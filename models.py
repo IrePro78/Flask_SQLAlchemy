@@ -43,7 +43,7 @@ class User(db.Model):
     password = db.Column(db.Text, nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     registered_on = db.Column(db.DateTime, server_default=func.now())
-    updated_on = db.Column(db.DateTime, server_default=func.now())
+    updated_on = db.Column(db.DateTime)
     email_confirmation_sent_on = db.Column(db.DateTime, server_default=func.now())
     email_confirmed = db.Column(db.Boolean, default=False)
     email_confirmed_on = db.Column(db.DateTime)
