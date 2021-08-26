@@ -1,5 +1,4 @@
 {% extends 'base.html'%}
-{% include 'password_reset_via_email.html' %}
 
 
 {% block title %}Login{% endblock %}
@@ -58,7 +57,8 @@
 
                                     <div class="forgot-password">
 
-                                      <p><em><a data-dismiss="modal" data-toggle="modal" href="#modal_reset_email">Nie pamiętasz hasła?</a></em></p>
+
+                                        <p><em><a href="{{ url_for('password_reset_via_email') }}">Nie pamiętasz hasła?</a></em></p>
 
                                     </div>
 
