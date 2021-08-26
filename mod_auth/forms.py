@@ -13,3 +13,7 @@ class LoginForm(Form):
     username = StringField('Username :', [validators.Length(min=5)])
     password = PasswordField('Password :', [validators.Length(min=6)])
     remember_me = BooleanField('Remember Me')
+
+
+class EmailForm(Form):
+    email = StringField('email', [validators.Email()])

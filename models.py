@@ -1,5 +1,5 @@
+from flask import current_app
 from sqlalchemy import func
-from flask_login import UserMixin
 from app import db, fbcrypt
 
 
@@ -35,7 +35,7 @@ class Publisher(db.Model):
 
 
 
-class User(UserMixin, db.Model):
+class User(db.Model):
     __tablename__ = 'auth_user'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -44,17 +44,16 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     registered_on = db.Column(db.DateTime, server_default=func.now())
     updated_on = db.Column(db.DateTime, server_default=func.now())
-    email_confirmation_sent_on = db.Column(db.DateTime)
+    email_confirmation_sent_on = db.Column(db.DateTime, server_default=func.now())
     email_confirmed = db.Column(db.Boolean, default=False)
-    email_confirmed_on = db.Column(db.DateTime, default=None)
+    email_confirmed_on = db.Column(db.DateTime)
 
 
 
     def __init__(self, username: str, password_plaintext: str, email: str):
         self.email = email
         self.username = username
-        self.password = fbcrypt.generate_password_hash(
-             password_plaintext).decode('utf-8')
+        self.password = self._generate_password_hash(password_plaintext)
 
 
 
@@ -63,7 +62,14 @@ class User(UserMixin, db.Model):
         return fbcrypt.check_password_hash(self.password, password_plaintext)
 
 
+    def set_password(self, password_plaintext: str):
+        self.password = self._generate_password_hash(
+            password_plaintext)
 
+    @staticmethod
+    def _generate_password_hash(password_plaintext):
+        return fbcrypt.generate_password_hash(
+            password_plaintext).decode('utf-8')
 
 
 
@@ -83,4 +89,4 @@ class User(UserMixin, db.Model):
         return str(self.id)
 
 
-# db.create_all()
+db.create_all()

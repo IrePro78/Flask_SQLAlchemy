@@ -2,7 +2,7 @@ from datetime import datetime
 from flask_login import login_user, current_user, login_required, logout_user
 from flask import render_template, flash, redirect, url_for, request, abort, current_app, copy_current_request_context
 from itsdangerous import URLSafeTimedSerializer, BadSignature
-from mod_auth.forms import RegisterForm, LoginForm
+from mod_auth.forms import RegisterForm, LoginForm, EmailForm
 from sqlalchemy.exc import IntegrityError
 from urllib.parse import urlparse
 from flask_mail import Message
@@ -106,7 +106,7 @@ def confirm_email(token):
         email = confirm_serializer.loads(token, salt='@4Dclkk573$^4!', max_age=3600)
     except BadSignature as e:
         flash(f'Link potwierdzający jest nieprawidłowy lub wygasł.', 'danger')
-        current_app.logger.info(f'Nieprawidłowy lub wygasły link potwierdzający otrzymany z adresu IP:'
+        current_app.logger.info(f'Invalid or expired confirmation link received from IP address:'
                                 f' {request.remote_addr}')
         return redirect(url_for('login'))
 
@@ -124,3 +124,44 @@ def confirm_email(token):
         current_app.logger.info(f'Email address confirmed for: {user.email}')
 
     return redirect(url_for('index'))
+
+
+def generate_password_reset_email(user_email):
+    password_reset_serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+
+    password_reset_url = url_for('process_password_reset_token',
+                                 token=password_reset_serializer.dumps(user_email, salt='@4Dclkk573$^4!'),
+                                 _external=True)
+
+    return Message(subject='Flask Books Library App - Żądanie zresetowania hasła!',
+                   html=render_template('email_password_reset.html', password_reset_url=password_reset_url),
+                   recipients=[user_email])
+
+
+def password_reset_via_email():
+    form = EmailForm(request.form)
+
+    if form.validate():
+        user = User.query.filter_by(email=form.email.data).first()
+
+        if user is None:
+            flash('Error! Invalid email address!', 'danger')
+            return render_template('password_reset_via_email.html', form=form)
+
+        if user.email_confirmed:
+            @copy_current_request_context
+            def send_email(email_message):
+                with current_app.app_context():
+                    mail.send(email_message)
+
+
+            message = generate_password_reset_email(form.email.data)
+            email_thread = Thread(target=send_email, args=[message])
+            email_thread.start()
+
+            flash('Sprawdź e-mail, wysłano link do resetowania hasła.', 'success')
+        else:
+            flash('Twój adres e-mail musi zostać potwierdzony przed próbą zresetowania hasła.', 'danger')
+        return redirect(url_for('login'))
+
+    return render_template('password_reset_via_email.html', form=form)

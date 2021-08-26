@@ -73,6 +73,7 @@ app.add_url_rule('/login', view_func=controlers.login, methods=['GET', 'POST'])
 app.add_url_rule('/logout', view_func=controlers.logout, methods=['GET', 'POST'])
 app.add_url_rule('/profile', view_func=controlers.user_profile, methods=['GET', 'POST'])
 app.add_url_rule('/confirm/<token>', view_func=controlers.confirm_email, methods=['GET', 'POST'])
+app.add_url_rule('/password_reset_via_email', view_func=controlers.password_reset_via_email, methods=['GET', 'POST'])
 
 
 
