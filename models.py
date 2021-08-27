@@ -89,4 +89,4 @@ class User(db.Model):
         return str(self.id)
 
 
-db.create_all()
+# db.create_all()
