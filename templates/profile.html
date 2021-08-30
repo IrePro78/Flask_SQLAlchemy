@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+
+{% block title %}Profil{% endblock %}
+
+
 {% block content %}
 <h1>Profil użytkownika</h1>
 
@@ -9,14 +13,34 @@
   </div>
   <div class="card-body">
     <h3>
-    <p>Użytkownik: ** {{ current_user.username }} **</p>
-    <p>Email: ** {{ current_user.email }} **</p>
+    <p>Użytkownik: {{ current_user.username }} </p>
+    <p>Email: {{ current_user.email }} </p>
     <p>Zarejestrowany: {{ current_user.registered_on.strftime("%d/%m/%Y, %H:%M:%S") }}</p>
-    <p>Ostatnia edycja: {{ current_user.updated_on.strftime("%d/%m/%Y, %H:%M:%S") }}</p>
-    <p>Potwierdzony email: {{ current_user.email_confirmed_on.strftime("%d/%m/%Y, %H:%M:%S") }}</p>
-    <p>Czy potwierdzony email: {{ current_user.email_confirmed}}</p>
+    {% if current_user.email_confirmed %}
+      <p>Adres email potwierdzony: {{ current_user.email_confirmed_on.strftime("%d/%m/%Y, %H:%M:%S") }}</p>
+       {% if current_user.updated_on %}
+         <p>Ostatnio edytowany: {{ current_user.updated_on.strftime("%d/%m/%Y, %H:%M:%S") }}</p>
+        {% endif %}
+    {% else %}
+      <p>Adres email nie został potwierdzony!</p>
+
+    {% endif %}
 
     </h3>
   </div>
 </div>
+
+<div class="card">
+  <div class="card-heading">
+    <h2>Akcja</h2>
+  </div>
+  <div class="card-body">
+    <p><a href="{{ url_for('change_password') }}">Zmiana hasła</a></p>
+    {% if not current_user.email_confirmed %}
+     <p><a href="{{ url_for('resend_email_confirmation') }}">Wyslij link aktywacyjny</a></p>
+    {% endif %}
+  </div>
+</div>
+
+
 {% endblock %}

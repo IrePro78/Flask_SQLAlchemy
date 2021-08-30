@@ -2,7 +2,7 @@ from datetime import datetime
 from flask_login import login_user, current_user, login_required, logout_user
 from flask import render_template, flash, redirect, url_for, request, abort, current_app, copy_current_request_context
 from itsdangerous import URLSafeTimedSerializer, BadSignature
-from mod_auth.forms import RegisterForm, LoginForm, EmailForm, PasswordForm
+from mod_auth.forms import RegisterForm, LoginForm, EmailForm, PasswordForm, ChangePasswordForm
 from sqlalchemy.exc import IntegrityError
 from urllib.parse import urlparse
 from flask_mail import Message
@@ -80,6 +80,41 @@ def process_password_reset_token(token):
         return redirect(url_for('login'))
 
     return render_template('reset_password_with_token.html', form=form)
+
+
+@login_required
+def change_password():
+    form = ChangePasswordForm(request.form)
+
+    if form.validate():
+        if current_user.is_password_correct(form.current_password.data):
+            current_user.set_password(form.new_password.data)
+            current_user.updated_on = datetime.now()
+            db.session.add(current_user)
+            db.session.commit()
+            flash('Hasło zostało zmienione!', 'success')
+            current_app.logger.info(f'Password updated for user: {current_user.username}')
+            return redirect(url_for('user_profile'))
+        else:
+            flash('Błąd! Aktualne hasło jest nieprawidłowe!', 'danger')
+            current_app.logger.info(f'Incorrect password change for user: {current_user.username}')
+    return render_template('change_password.html', form=form)
+
+@login_required
+def resend_email_confirmation():
+    @copy_current_request_context
+    def send_email(email_message):
+        with current_app.app_context():
+            mail.send(email_message)
+
+    message = generate_confirmation_email(current_user.email)
+    email_thread = Thread(target=send_email, args=[message])
+    email_thread.start()
+
+    flash('E-mail wysłany w celu potwierdzenia twojego adresu e-mail. Proszę sprawdzić email', 'success')
+    current_app.logger.info(f'Email re-sent to confirm email address for user: {current_user.email}')
+    return redirect(url_for('user_profile'))
+
 
 
 

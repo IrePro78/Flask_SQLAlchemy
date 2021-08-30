@@ -22,3 +22,8 @@ class EmailForm(Form):
 
 class PasswordForm(Form):
     password = PasswordField('New password :', [validators.Length(min=6)])
+
+
+class ChangePasswordForm(Form):
+    current_password = PasswordField('Current Password: ', [validators.Length(min=6)])
+    new_password = PasswordField('New Password: ', [validators.Length(min=6)])
