@@ -6,6 +6,7 @@
 
 {% block content %}
 
+
 <!-- Modal Login Users-->
 
                 <div id="modal_login" class="modal fade" role="dialog">
@@ -85,64 +86,6 @@
 
                 </div>
 
-
-    <!-- Modal Register Users-->
-
-    <div id="modal_register" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-
-                    <h4 class="modal-title">Rejestracja</h4>
-                </div>
-                <div class="modal-body">
-
-                    <form action="{{ url_for('register') }}" method="POST">
-
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
-                        <div class="form-group">
-
-                            <label>Nazwa użytkownika:</label>
-                            <input type="text" class="form-control" name="username" required="1">
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <label>Hasło:</label>
-                            <input type="password" class="form-control" name="password" required="1">
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <label>email:</label>
-                            <input type="email" class="form-control" name="email" required="1">
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <button class="btn btn-primary" type="submit">Rejestruj</button>
-
-                        </div>
-
-                    </form>
-
-                </div>
-
-                <div class="modal-footer">
-
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
 
 
 {% endblock %}

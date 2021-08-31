@@ -1,11 +1,40 @@
 {% extends 'base.html' %}
-
+{
 
 {% block title %}Register{% endblock %}
 
 
 
 {% block content %}
+
+<!-- Auto run modal-->
+
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $('#modal_register').modal('show');
+    });
+</script>
+
+
+<!-- Validate password-->
+
+<script>
+function checkPasswordMatch() {
+    var password = $("#password").val();
+    var confirmPassword = $("#confirm_password").val();
+
+    if (password !== confirmPassword)
+        $("#message").html("Hasła nie pasują do siebie!").css('color', 'red');
+    else
+        $("#message").html("Hasła się zgadzają.").css('color', 'green');
+}
+
+$(document).ready(function () {
+   $("#password, #confirm_password").keyup(checkPasswordMatch);
+});
+</script>
+
+
 
 <!-- Modal Login Users-->
 
@@ -111,17 +140,28 @@
 
                         <div class="form-group">
 
-                            <label>Hasło:</label>
-                            <input type="password" class="form-control" name="password" required="1">
+                            <label>email:</label>
+                            <input type="email" class="form-control" name="email" required="1">
 
                         </div>
 
                         <div class="form-group">
 
-                            <label>email:</label>
-                            <input type="email" class="form-control" name="email" required="1">
+                            <label>Hasło:</label>
+                            <input type="password" class="form-control" id="password" name="password" required="1">
 
                         </div>
+
+                        <div class="form-group">
+
+                            <label>Powtórz hasło:</label>
+                            <input type="password" class="form-control" id="confirm_password"
+                                   name="confirm_password" required="1" onChange="checkPasswordMatch();" />
+                            <div class="registrationFormAlert" id="message">
+                            </div>
+
+                        </div>
+
 
                         <div class="form-group">
 
