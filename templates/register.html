@@ -23,14 +23,19 @@ function checkPasswordMatch() {
     var password = $("#password").val();
     var confirmPassword = $("#confirm_password").val();
 
-    if (password !== confirmPassword)
+    if (password !== confirmPassword) {
         $("#message").html("Hasła nie pasują do siebie!").css('color', 'red');
+        return true;
+    }
     else
         $("#message").html("Hasła się zgadzają.").css('color', 'green');
+        return false;
 }
 
 $(document).ready(function () {
    $("#password, #confirm_password").keyup(checkPasswordMatch);
+
+
 });
 </script>
 
@@ -165,7 +170,8 @@ $(document).ready(function () {
 
                         <div class="form-group">
 
-                            <button class="btn btn-primary" type="submit">Rejestruj</button>
+                            <button class="btn btn-primary" type="submit" >Rejestruj</button>
+                            <button class="btn btn-primary" type="submit" disabled = disabled>Rejestruj</button>
 
                         </div>
 

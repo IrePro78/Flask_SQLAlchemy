@@ -1,4 +1,3 @@
-from flask import current_app
 from sqlalchemy import func
 from app import db, fbcrypt
 
