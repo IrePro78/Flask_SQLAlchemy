@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{
 
 {% block title %}Register{% endblock %}
 
@@ -16,109 +15,11 @@
 </script>
 
 
+
 <!-- Validate password-->
 
-<script>
-function checkPasswordMatch() {
-    var password = $("#password").val();
-    var confirmPassword = $("#confirm_password").val();
+<script src="../static/register.js" ></script>
 
-    if (password !== confirmPassword) {
-        $("#message").html("Hasła nie pasują do siebie!").css('color', 'red');
-        return true;
-    }
-    else
-        $("#message").html("Hasła się zgadzają.").css('color', 'green');
-        return false;
-}
-
-$(document).ready(function () {
-   $("#password, #confirm_password").keyup(checkPasswordMatch);
-
-
-});
-</script>
-
-
-
-<!-- Modal Login Users-->
-
-                <div id="modal_login" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-
-                                <h4 class="modal-title">Zaloguj</h4>
-                            </div>
-                            <div class="modal-body">
-
-                                <form method="POST">
-
-                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
-                                    <div class="form-group">
-
-                                        <label>Nazwa użytkownika:</label>
-                                        <input type="text" class="form-control" name="username" required="1">
-
-
-                                    </div>
-
-
-                                    <div class="form-group">
-
-
-                                        <label>Hasło:</label>
-                                        <input type="password" class="form-control" name="password" required="1">
-
-
-                                    </div>
-
-                                    <div class="form-check">
-
-
-                                        <input type="checkbox" class="form-check-input" name="remember_me">
-                                        <label> pamiętaj mnie</label>
-
-
-                                    </div>
-
-                                    <div class="form-group">
-
-                                        <button class="btn btn-primary" type="submit">Zaloguj</button>
-
-                                    </div>
-
-
-                                    <div class="forgot-password">
-
-
-                                        <p><em><a href="{{ url_for('password_reset_via_email') }}">Nie pamiętasz hasła?</a></em></p>
-
-                                    </div>
-
-                                </form>
-
-
-                            </div>
-
-
-                            <div class="modal-footer">
-
-
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
-
-
-                            </div>
-
-
-                        </div>
-
-
-                    </div>
-
-
-                </div>
 
 
     <!-- Modal Register Users-->
@@ -170,8 +71,8 @@ $(document).ready(function () {
 
                         <div class="form-group">
 
-                            <button class="btn btn-primary" type="submit" >Rejestruj</button>
-                            <button class="btn btn-primary" type="submit" disabled = disabled>Rejestruj</button>
+                            <button class="btn btn-primary" type="submit">Rejestruj</button>
+
 
                         </div>
 
