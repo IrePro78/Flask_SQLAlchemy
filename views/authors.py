@@ -1,12 +1,15 @@
-from flask import request, render_template
+from flask import request, jsonify
 from flask_login import login_required
-
 from models import Author, db
 
-@login_required
+
+
+# @login_required
 def index_authors():
-    all_authors = Author.query.order_by(Author.id).all()
-    return render_template('index.html', books=all_authors)
+    authors = Author.query.all()
+    authors_list = [author.to_dict() for author in authors]
+    return jsonify(authors_list)
+
 
 
 @login_required
