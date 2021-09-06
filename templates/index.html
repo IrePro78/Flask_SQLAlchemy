@@ -8,42 +8,35 @@
 
 {% block content %}
 
-
-<script>
-$(document).ready(function (){
-    $('#selAuthor').select2({
-        ajax:{
-            url: '/authors',
-            type: 'post',
-            dataType: 'json',
-            delay: '250',
-            data: function (params) {
-                console.log(params.term)
-                return{
-                    searchTerm:params.term
-                };
-            },
-            processResult: function (response){
-                console.log(response)
-                return{
-                    results: response
-                };
-            },
-            cache: true
-        }
-    });
-
-});
-</script>
-
-<div class="form-group">
-    <label>Autor:</label>
-    <select id="selAuthor" style="width: 300px;">
-        <option value="0" >--select author--</option>
-    </select>
-
-</div>
-
+    <script>
+        $(document).ready(function () {
+            $('#selAuthor').select2({
+                ajax: {
+                    url: '/authors',
+                    type: 'post',
+                    dataType: 'json',
+                    delay: '250',
+                    headers:{
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: function (params) {
+                        console.log(params.term)
+                        return {
+                            searchTerm: params.term
+                        };
+                    },
+                    processResults: function (response) {
+                        console.log(response)
+                        print(response)
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                }
+            });
+        });
+    </script>
 
 
     <div class="container">
@@ -88,7 +81,8 @@ $(document).ready(function (){
                                 <td>{{ row.cover_type }}</td>
 
                                 <td>
-                                    <a href="/update/{{ row.id }}" class="btn btn-outline-warning btn-xs" data-toggle="modal"
+                                    <a href="/update/{{ row.id }}" class="btn btn-outline-warning btn-xs"
+                                       data-toggle="modal"
                                        data-target="#modaledit{{ row.id }}">Edytuj</a>
                                     <a href="/delete/{{ row.id }}" class="btn btn-outline-danger btn-xs"
                                        onclick="return confirm('Czy na pewno chcesz skasować ?')">Kasuj</a>
@@ -134,7 +128,6 @@ $(document).ready(function (){
 
 
                                                 </div>
-
 
 
                                                 <div class="form-group">
@@ -187,10 +180,10 @@ $(document).ready(function (){
                                                     <label>Rodzaj oprawy:</label>
 
 
-                                                        <select name="cover_type">
-                                                            <option value="twarda">twarda</option>
-                                                            <option value="miękka">miękka</option>
-                                                        </select>
+                                                    <select name="cover_type">
+                                                        <option value="twarda">twarda</option>
+                                                        <option value="miękka">miękka</option>
+                                                    </select>
 
 
                                                 </div>
@@ -262,13 +255,13 @@ $(document).ready(function (){
 
 
                                     </div>
+                                    <div class="form-group">
+                                        <label>Autor:</label>
+                                        <select id="selAuthor" style="width: 400px;">
+                                            <option value="0">--select author--</option>
+                                        </select>
 
-
-
-
-
-
-
+                                    </div>
 
 
                                     <div class="form-group">
@@ -300,8 +293,8 @@ $(document).ready(function (){
 
                                         <label>Rodzaj oprawy:</label>
                                         <select name="cover_type">
-                                          <option value="twarda">twarda</option>
-                                          <option value="miękka">miękka</option>
+                                            <option value="twarda">twarda</option>
+                                            <option value="miękka">miękka</option>
                                         </select>
 
                                     </div>

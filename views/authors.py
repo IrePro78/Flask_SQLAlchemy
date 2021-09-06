@@ -4,7 +4,7 @@ from models import Author, db
 
 
 
-# @login_required
+@login_required
 def index_authors():
     authors = Author.query.all()
     authors_list = [author.to_dict() for author in authors]

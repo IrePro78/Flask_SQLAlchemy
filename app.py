@@ -40,7 +40,7 @@ login.login_message_category = 'info'
 #Hashowanie hasła
 fbcrypt = Bcrypt(app)
 
-#Ochrona CSRF
+#CSRF
 csrf = CSRFProtect(app)
 
 #Mail
@@ -60,7 +60,7 @@ from mod_auth import controlers
 
 #api urls
 app.add_url_rule('/', view_func=books.index, methods=['GET'])
-app.add_url_rule('/authors', view_func=authors.index_authors, methods=['GET'])
+app.add_url_rule('/authors', view_func=authors.index_authors, methods=['GET','POST'])
 app.add_url_rule('/publishers', view_func=publishers.index_publishers, methods=['GET'])
 app.add_url_rule('/add-book', view_func=books.add_book, methods=['GET', 'POST'])
 app.add_url_rule('/update-book', view_func=books.update_book, methods=['GET', 'POST'])

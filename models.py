@@ -2,17 +2,6 @@ from sqlalchemy import func
 from app import db, fbcrypt
 
 
-class Author(db.Model):
-    __tablename__ = 'authors'
-    id = db.Column(db.Integer, primary_key=True)
-    author_name = db.Column(db.String(255))
-    # books = db.relationship('Book', backref='author')
-
-    def to_dict(self):
-        return {'id': self.id, 'author_name': self.author_name }
-
-
-
 class Book(db.Model):
     __tablename__ = 'books'
     id = db.Column(db.Integer, primary_key=True)
@@ -24,6 +13,17 @@ class Book(db.Model):
     cover_type = db.Column(db.String)
     author = db.relationship("Author", backref='book')
     publisher = db.relationship('Publisher', backref='book')
+
+
+
+class Author(db.Model):
+    __tablename__ = 'authors'
+    id = db.Column(db.Integer, primary_key=True)
+    author_name = db.Column(db.Text)
+    # books = db.relationship('Book', backref='author')
+
+    def to_dict(self):
+        return {'id': self.id, 'author_name': self.author_name }
 
 
 
