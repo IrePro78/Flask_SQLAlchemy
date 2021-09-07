@@ -1,10 +1,13 @@
 from flask import request, jsonify
 from flask_login import login_required
+
+from app import csrf
 from models import Author, db
 
 
 
-@login_required
+# @login_required
+@csrf.exempt
 def index_authors():
     authors = Author.query.all()
     authors_list = [author.to_dict() for author in authors]
