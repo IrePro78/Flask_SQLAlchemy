@@ -17,12 +17,8 @@
                     dataType: 'json',
                     delay: '250',
                     data: function (params) {
-                        console.log(params.term)
-                        return {
-                            search: params.term
-                        };
-                    },
-                    processResults(response) {
+                        },
+                    processResults: function (response) {
                         console.log(response)
                         print(response)
                         return {
@@ -254,7 +250,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Autor:</label>
-                                        <select id="selAuthor" style="width: 400px;">
+                                        <select id="selAuthor" name="author_name" style="width: 400px;">
                                             <option value="0">--select author--</option>
                                         </select>
 
