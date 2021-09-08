@@ -9,9 +9,10 @@ from models import Author, db
 # @login_required
 @csrf.exempt
 def index_authors():
-    authors = Author.query.order_by(Author.id).all()
-    authors_list = [author.to_dict() for author in authors]
-    return jsonify(authors_list)
+        # authors = Author.query.order_by(Author.author_name).all()
+        authors = Author.query.filter(Author.author_name.like('key')).order_by()
+        authors_list = [author.to_dict() for author in authors]
+        return jsonify(authors_list)
 
 
 
