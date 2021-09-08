@@ -10,7 +10,7 @@ from models import Author, db
 @csrf.exempt
 def index_authors():
         # authors = Author.query.order_by(Author.author_name).all()
-        authors = Author.query.filter(Author.author_name.like('key')).order_by()
+        authors = Author.query.filter(Author.author_name.like('K%')).order_by(Author.author_name).limit(1)
         authors_list = [author.to_dict() for author in authors]
         return jsonify(authors_list)
 
