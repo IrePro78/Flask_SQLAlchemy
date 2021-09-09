@@ -1,8 +1,8 @@
-from flask import request, jsonify
 from flask_login import login_required
-
-from app import csrf
+from flask import request, jsonify
 from models import Author, db
+from app import csrf
+
 
 
 
@@ -11,10 +11,8 @@ from models import Author, db
 def index_authors():
     if request.method == 'POST':
         term = request.form.get('term')
-        authors = Author.query.filter_by(id=term).all()
-        # print(authors, term)
-        # authors = Author.query.order_by(Author.author_name).all()
-        # authors = Author.query.filter(Author.author_name.like(term)).order_by(Author.author_name).limit(5)
+        print(term)
+        authors = Author.query.order_by(Author.author_name.asc()).all()
         authors_list = [author.to_dict() for author in authors]
         return jsonify(authors_list)
 
