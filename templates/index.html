@@ -15,23 +15,15 @@
                     url: '/authors',
                     type: 'post',
                     dataType: 'json',
-                    delay: '250',
-                    data: function (params) {
-                        console.log(params)
+                    processResults: function (data) {
                         return {
-                            searchTerm: params.term
-
-                        }
-                    },
-                    processResults: function (response) {
-                        console.log(response)
-                        print(response)
-                        return {
-                            results: response
+                            results: $.map(data, function (item) {
+                                return {id: item.id, text: item.author_name};
+                            })
                         };
-                    },
-                    cache: true
-                }
+                    }
+                },
+                minimumInputLength: 1
             });
         });
     </script>
@@ -255,8 +247,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Autor:</label>
-                                        <select id="selAuthor" name="text" style="width: 400px;">
-                                            <option value="0">--select author--</option>
+                                        <select id="selAuthor" name="author_name" style="width: 400px;">
+                                            <option value="0">-----------</option>
                                         </select>
 
                                     </div>

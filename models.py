@@ -23,7 +23,7 @@ class Author(db.Model):
     # books = db.relationship('Book', backref='author')
 
     def to_dict(self):
-        return {'id': self.id, 'text': self.author_name }
+        return {'id': self.id, 'author_name': self.author_name }
 
 
 
