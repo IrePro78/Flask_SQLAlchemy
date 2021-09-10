@@ -11,6 +11,7 @@
     <script>
         $(document).ready(function () {
             $('#selAuthor').select2({
+                tags: true,
                 ajax: {
                     url: '/authors',
                     type: 'post',
@@ -18,12 +19,12 @@
                     processResults: function (data) {
                         return {
                             results: $.map(data, function (item) {
-                                return {id: item.id, text: item.name};
+                                return {id: item.name, text: item.name};
                             })
                         };
                     }
                 },
-                minimumInputLength: 1
+                minimumInputLength: 2
             });
         });
     </script>

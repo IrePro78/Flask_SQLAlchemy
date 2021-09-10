@@ -14,6 +14,9 @@ class Book(db.Model):
     author = db.relationship("Author", backref='book')
     publisher = db.relationship('Publisher', backref='book')
 
+    def __str__(self):
+        return self.title
+
 
 
 class Author(db.Model):
@@ -21,6 +24,9 @@ class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author_name = db.Column(db.Text)
     # books = db.relationship('Book', backref='author')
+
+    def __str__(self):
+        return self.author_name
 
     def to_dict(self):
         return {'id': self.id, 'name': self.author_name }
@@ -34,7 +40,8 @@ class Publisher(db.Model):
     publisher_name = db.Column(db.String(255))
     # books = db.relationship('Book', backref='publisher')
 
-
+    def __str__(self):
+        return self.publisher_name
 
 
 class User(db.Model):

@@ -11,8 +11,7 @@ from app import csrf
 def index_authors():
     if request.method == 'POST':
         term = request.form.get('term')
-        print(term)
-        authors = Author.query.order_by(Author.author_name.asc()).all()
+        authors = Author.query.filter(Author.author_name.ilike(f'{term}%')).all()
         authors_list = [author.to_dict() for author in authors]
         return jsonify(authors_list)
 
@@ -25,6 +24,7 @@ def add_author():
         db.session.add(new_author)
         db.session.commit()
         return new_author.id
+
 
 @login_required
 def update_author(author):
