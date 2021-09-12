@@ -40,8 +40,9 @@ def update_book():
         book = Book.query.get(request.form.get('id'))
         book.id = request.form['id']
         book.title = request.form['title']
-        author = Author.query.get(request.form.get('id'))
-        authors.update_author(author)
+        author = request.form['author_name']
+        # author = Author.query.get(request.form.get('id'))
+        book.author_id = change_author(author)
         publisher = Publisher.query.get(request.form.get('id'))
         publishers.update_publisher(publisher)
         book.pages = request.form['pages']
@@ -51,6 +52,12 @@ def update_book():
         flash('Edycja powiodła się', 'success')
         app.logger.info(f"Updated book: ({book.title}) by user: {current_user.username} !")
         return redirect(url_for('index'))
+
+
+def change_author(id):
+    return id
+
+
 
 @login_required
 def delete_book(id):

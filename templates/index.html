@@ -8,26 +8,46 @@
 
 {% block content %}
 
-    <script>
-        $(document).ready(function () {
-            $('#selAuthor').select2({
-                tags: true,
-                ajax: {
-                    url: '/authors',
-                    type: 'post',
-                    dataType: 'json',
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {id: item.name, text: item.name};
-                            })
-                        };
-                    }
-                },
-                minimumInputLength: 2
-            });
+<script>
+    $(document).ready(function () {
+        $('#selAuthor').select2({
+            tags: true,
+            ajax: {
+                url: '/authors',
+                type: 'post',
+                dataType: 'json',
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {id: item.id, text: item.name};
+                        })
+                    };
+                }
+            },
+            minimumInputLength: 2
         });
-    </script>
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#selAuthor1').select2({
+            {#tags: true,#}
+            ajax: {
+                url: '/authors',
+                type: 'post',
+                dataType: 'json',
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {id: item.id, text: item.name};
+                        })
+                    };
+                }
+            },
+            minimumInputLength: 2
+        });
+    });
+</script>
 
 
     <div class="container">
@@ -97,12 +117,9 @@
 
                                             <h4 class="modal-title">Informacja edycji</h4>
 
-
                                         </div>
 
-
                                         <div class="modal-body">
-
 
                                             <form action="{{ url_for('update_book') }}" method="POST">
 
@@ -110,24 +127,23 @@
 
                                                 <div class="form-group">
 
-
                                                     <label>Tytuł:</label>
                                                     <input type="hidden" name="id" value="{{ row.id }}">
 
                                                     <input type="text" class="form-control" name="title"
                                                            value="{{ row.title }}">
 
-
                                                 </div>
-
 
                                                 <div class="form-group">
 
 
                                                     <label>Autor:</label>
 
-                                                    <input type="text" class="form-control" name="author_name"
-                                                           value="{{ row.author.author_name }}">
+
+                                                    <select id="selAuthor1" name="author_name" style="width: 100%;">
+                                                        <option value="0">{{ row.author.author_name }}</option>
+                                                    </select>
 
 
                                                 </div>
