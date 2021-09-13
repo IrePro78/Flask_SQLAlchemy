@@ -1,22 +1,34 @@
-from flask import request, render_template
+from flask import request, render_template, jsonify
 from flask_login import login_required
 from models import Publisher, db
+from app import csrf
 
+
+
+@csrf.exempt
 @login_required
 def index_publishers():
-    all_publishers = Publisher.query.order_by(Publisher.id).all()
-    return render_template('index.html', books=all_publishers)
+    term = request.form.get('term')
+    publishers = Publisher.query.filter(Publisher.publisher_name.ilike(f'%{term}%')).all()
+    publishers_list = [publisher.to_dict() for publisher in publishers]
+    return jsonify(publishers_list)
 
 
 
 @login_required
 def add_publisher():
     if request.method == 'POST':
-        publisher_name = request.form['publisher_name']
-        new_publisher = Publisher(publisher_name=publisher_name)
-        db.session.add(new_publisher)
-        db.session.commit()
-        return new_publisher.id
+        publisher_id = request.form['publisher_name']
+        if len(publisher_id) < 3:
+            return publisher_id
+        else:
+            publisher_name = request.form['publisher_name']
+            new_publisher = Publisher(publisher_name=publisher_name)
+            db.session.add(new_publisher)
+            db.session.commit()
+            return new_publisher.id
+
+
 
 @login_required
 def update_publisher(publisher):

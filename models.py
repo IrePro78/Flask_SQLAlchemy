@@ -29,7 +29,7 @@ class Author(db.Model):
         return self.author_name
 
     def to_dict(self):
-        return {'id': self.id, 'name': self.author_name }
+        return {'id': self.id, 'name': self.author_name}
 
 
 
@@ -42,6 +42,9 @@ class Publisher(db.Model):
 
     def __str__(self):
         return self.publisher_name
+
+    def to_dict(self):
+        return {'id': self.id, 'name': self.publisher_name}
 
 
 class User(db.Model):
