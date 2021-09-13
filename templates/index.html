@@ -8,97 +8,7 @@
 
 {% block content %}
 
-<script>
-    $(document).ready(function () {
-        $('#selAuthor').select2({
-            language: "pl",
-            tags: true,
-            ajax: {
-                url: '/authors',
-                type: 'post',
-                dataType: 'json',
-                delay: 250,
-                processResults: function (data) {
-                    return {
-                        results: $.map(data, function (item) {
-                            return {id: item.id, text: item.name};
-                        })
-                    };
-                }
-            },
-            minimumInputLength: 2
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-        $('#selPublisher').select2({
-            language: "pl",
-            tags: true,
-            ajax: {
-                url: '/publishers',
-                type: 'post',
-                dataType: 'json',
-                delay: 250,
-                processResults: function (data) {
-                    return {
-                        results: $.map(data, function (item) {
-                            return {id: item.id, text: item.name};
-                        })
-                    };
-                }
-            },
-            minimumInputLength: 2
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-        $('#selAuthor1').select2({
-            language: "pl",
-            tags: true,
-            ajax: {
-                url: '/authors',
-                type: 'post',
-                dataType: 'json',
-                delay: 250,
-                processResults: function (data) {
-                    return {
-                        results: $.map(data, function (item) {
-                            return {id: item.id, text: item.name};
-                        })
-                    };
-                }
-            },
-            minimumInputLength: 2
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-        $('#selPublisher1').select2({
-            language: "pl",
-            tags: true,
-            ajax: {
-                url: '/publishers',
-                type: 'post',
-                dataType: 'json',
-                delay: 250,
-                processResults: function (data) {
-                    return {
-                        results: $.map(data, function (item) {
-                            return {id: item.id, text: item.name};
-                        })
-                    };
-                }
-            },
-            minimumInputLength: 2
-        });
-    });
-</script>
+<script src="../static/select2.js" ></script>
 
 
     <div class="container">
@@ -168,7 +78,7 @@
                                         <div class="modal-header">
 
 
-                                            <h4 class="modal-title">Informacja edycji</h4>
+                                            <h4 class="modal-title">Okno edycji</h4>
 
                                         </div>
 

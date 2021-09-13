@@ -40,8 +40,17 @@ def update_book():
         book = Book.query.get(request.form.get('id'))
         book.id = request.form['id']
         book.title = request.form['title']
-        book.author_id = request.form['author_name']
-        book.publisher_id = request.form['publisher_name']
+
+        if len(request.form['author_name']) < 3:
+            book.author_id = request.form['author_name']
+        else:
+            book.author_id = authors.add_author()
+
+        if len(request.form['publisher_name']) < 3:
+            book.publisher_id = request.form['publisher_name']
+        else:
+            book.publisher_id = publishers.add_publisher()
+
         book.pages = request.form['pages']
         book.date_published = request.form['date_published']
         book.cover_type = request.form['cover_type']
