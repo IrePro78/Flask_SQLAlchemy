@@ -49,11 +49,9 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 
-    $('select').each(function() {
-        $(this).val('#selAuthor1');
-        console.log(`${this.id}`);
+  $("select[id^='sel']").each(function(index, element) {
 
-    $('#selAuthor1').select2({
+    $(element).select2({
         language: "pl",
         tags: true,
         ajax: {
