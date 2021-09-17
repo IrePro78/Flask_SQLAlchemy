@@ -23,7 +23,6 @@
                                 data-toggle="modal" data-target="#mymodal"> Dodaj nową książkę
                         </button>
 
-
                     </h2>
 
 
@@ -57,6 +56,7 @@
 
                                 <td>
                                     <a href="/update/{{ row.id }}" class="btn btn-outline-warning btn-xs"
+                                       data-id={{row.id}}
                                        data-toggle="modal"
                                        data-target="#modaledit{{ row.id }}">Edytuj</a>
                                     <a href="/delete/{{ row.id }}" class="btn btn-outline-danger btn-xs"
@@ -72,12 +72,9 @@
                             <div id="modaledit{{ row.id }}" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
 
-
                                     <div class="modal-content">
 
-
                                         <div class="modal-header">
-
 
                                             <h4 class="modal-title">Okno edycji</h4>
 
@@ -96,21 +93,14 @@
 
                                                     <input type="text" class="form-control" name="title"
                                                            value="{{ row.title }}">
-
                                                 </div>
-
-
-
                                                     <div class="form-group">
-
 
                                                         <label>Autor:</label>
 
-
-                                                        <select id="selAuthor1" name="author_name" style="width: 100%;">
+                                                        <select class="select2" id="selAuthor1" name="author_name" style="width: 100%;">
                                                             <option value="{{row.author.id}}" selected="selected">{{ row.author.author_name }}</option>
                                                         </select>
-
 
                                                     </div>
 
@@ -119,12 +109,13 @@
 
                                                         <label>Wydawnictwo:</label>
 
-                                                        <select id="selPublisher1" name="publisher_name" style="width: 100%;">
+                                                        <select class="select2" id="selPublisher1" name="publisher_name" style="width: 100%;">
                                                             <option value="{{ row.publisher.id }}" selected="selected">{{ row.publisher.publisher_name }}</option>
                                                         </select>
 
 
                                                     </div>
+
 
 
                                                 <div class="form-group">
@@ -148,6 +139,8 @@
 
 
                                                 </div>
+
+
 
                                                 <div class="form-group">
 
