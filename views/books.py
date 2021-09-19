@@ -8,7 +8,7 @@ from app import app
 
 @login_required
 def index():
-    all_books = Book.query.order_by(Book.id).all()
+    all_books = Book.query.order_by(Book.id).filter_by(user_id=current_user.id).all()
     return render_template('index.html', books=all_books)
 
 @login_required
@@ -26,7 +26,8 @@ def add_book():
             publisher_id=new_publisher,
             pages=pages,
             date_published=date_published,
-            cover_type=cover_type
+            cover_type=cover_type,
+            user_id=current_user.id
         )
         db.session.add(new_book)
         db.session.commit()
@@ -41,12 +42,12 @@ def update_book():
         book.id = request.form['id']
         book.title = request.form['title']
 
-        if len(request.form['author_name']) < 3:
+        if request.form['author_name'].isdigit():
             book.author_id = request.form['author_name']
         else:
             book.author_id = authors.add_author()
 
-        if len(request.form['publisher_name']) < 3:
+        if request.form['author_name'].isdigit():
             book.publisher_id = request.form['publisher_name']
         else:
             book.publisher_id = publishers.add_publisher()

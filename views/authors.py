@@ -10,7 +10,7 @@ from app import csrf
 @csrf.exempt
 def index_authors():
     if request.method == 'POST':
-        term = request.form.get('q')
+        term = request.form.get('term')
         authors = Author.query.filter(Author.author_name.ilike(f'%{term}%')).all()
         authors_list = [author.to_dict() for author in authors]
         return jsonify(authors_list)

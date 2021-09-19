@@ -20,7 +20,7 @@
 
                     <h2>Lista książek
                         <button type="button" class="btn btn-outline-success float-right"
-                                data-toggle="modal" data-target="#mymodal"> Dodaj nową książkę
+                                data-toggle="modal" data-target="#addmodal"> Dodaj nową książkę
                         </button>
 
                     </h2>
@@ -55,10 +55,13 @@
 
 
                                 <td>
-                                    <a href="/update/{{ row.id }}" class="btn btn-outline-warning btn-xs"
-                                       data-id={{row.id}}
-                                       data-toggle="modal"
-                                       data-target="#modaledit{{ row.id }}">Edytuj</a>
+
+                                    <button class="btn btn-outline-warning btn-xs"
+                                            id="{{row.id}}"
+                                            data-toggle="modal"
+                                            data-target="#modaledit{{ row.id }}">Edytuj
+                                    </button>
+
                                     <a href="/delete/{{ row.id }}" class="btn btn-outline-danger btn-xs"
                                        onclick="return confirm('Czy na pewno chcesz skasować ?')">Kasuj</a>
 
@@ -98,7 +101,7 @@
 
                                                         <label>Autor:</label>
 
-                                                        <select class="select2" id="selAuthor1" name="author_name" style="width: 100%;">
+                                                        <select id="selAuthor1" name="author_name" style="width: 100%;">
                                                             <option value="{{row.author.id}}" selected="selected">{{ row.author.author_name }}</option>
                                                         </select>
 
@@ -109,7 +112,7 @@
 
                                                         <label>Wydawnictwo:</label>
 
-                                                        <select class="select2" id="selPublisher1" name="publisher_name" style="width: 100%;">
+                                                        <select id="selPublisher1" name="publisher_name" style="width: 100%;">
                                                             <option value="{{ row.publisher.id }}" selected="selected">{{ row.publisher.publisher_name }}</option>
                                                         </select>
 
@@ -204,7 +207,7 @@
                 <!-- Modal Add Books-->
 
 
-                <div id="mymodal" class="modal fade" role="dialog">
+                <div id="addmodal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -226,7 +229,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Autor:</label>
-                                        <select id="selAuthor" name="author_name" style="width: 100%;">
+                                        <select id="selAuthor" name="author_name" required="1" style="width: 100%;">
                                             <option value="0">--Wybierz autora--</option>
                                         </select>
 
@@ -236,7 +239,7 @@
                                     <div class="form-group">
 
                                         <label>Wydwnictwo:</label>
-                                        <select id="selPublisher" name="publisher_name" style="width: 100%;">
+                                        <select id="selPublisher" name="publisher_name" required="1" style="width: 100%;">
                                             <option value="0">--Wybierz wydawnictwo--</option>
                                         </select>
 

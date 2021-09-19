@@ -8,6 +8,7 @@ class Book(db.Model):
     title = db.Column(db.String(255))
     author_id = db.Column(db.Integer, db.ForeignKey('authors.id'), nullable=False)
     publisher_id = db.Column(db.Integer, db.ForeignKey('publishers.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('auth_user.id'))
     pages = db.Column(db.Integer, nullable=False)
     date_published = db.Column(db.Date)
     cover_type = db.Column(db.String)
@@ -59,6 +60,7 @@ class User(db.Model):
     email_confirmation_sent_on = db.Column(db.DateTime, server_default=func.now())
     email_confirmed = db.Column(db.Boolean, default=False)
     email_confirmed_on = db.Column(db.DateTime)
+    books = db.relationship('Book', backref='user', lazy='dynamic')
 
 
 
