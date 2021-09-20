@@ -31,7 +31,7 @@ app.logger.addHandler(file_handler)
 #Logger
 app.logger.info('Uruchamianie aplikacji Flask Books Library App... ')
 
-#Logowanie użutkowników
+#Logowanie użytkowników
 login = LoginManager(app)
 login.login_view = 'login'
 login.login_message = 'Zaloguj się, aby uzyskać dostęp do tej strony.'
@@ -68,10 +68,11 @@ app.add_url_rule('/delete/<id>', view_func=books.delete_book, methods=['GET', 'P
 
 
 #Logowanie i rejestracja
-app.add_url_rule('/register', view_func=controlers.register, methods=['GET', 'POST'])
 app.add_url_rule('/login', view_func=controlers.login, methods=['GET', 'POST'])
 app.add_url_rule('/logout', view_func=controlers.logout, methods=['GET', 'POST'])
+app.add_url_rule('/register', view_func=controlers.register, methods=['GET', 'POST'])
 app.add_url_rule('/profile', view_func=controlers.user_profile, methods=['GET', 'POST'])
+app.add_url_rule('/delete-user', view_func=controlers.delete_user, methods=['GET', 'POST'])
 app.add_url_rule('/confirm/<token>', view_func=controlers.confirm_email, methods=['GET', 'POST'])
 app.add_url_rule('/password_reset_via_email', view_func=controlers.password_reset_via_email, methods=['GET', 'POST'])
 app.add_url_rule('/password_reset_via_token/<token>', view_func=controlers.process_password_reset_token, methods=['GET', 'POST'])

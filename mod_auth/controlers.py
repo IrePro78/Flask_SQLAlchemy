@@ -7,10 +7,8 @@ from sqlalchemy.exc import IntegrityError
 from urllib.parse import urlparse
 from flask_mail import Message
 from threading import Thread
-from models import User
-from app import db, mail
-
-
+from models import User, Book
+from app import db, mail, csrf
 
 
 def generate_password_reset_email(user_email):
@@ -22,7 +20,6 @@ def generate_password_reset_email(user_email):
     return Message(subject='Flask Books Library App - Żądanie zresetowania hasła!',
                    html=render_template('email_password_reset.html', password_reset_url=password_reset_url),
                    recipients=[user_email])
-
 
 
 def password_reset_via_email():
@@ -41,7 +38,6 @@ def password_reset_via_email():
                 with current_app.app_context():
                     mail.send(email_message)
 
-
             message = generate_password_reset_email(form.email.data)
             email_thread = Thread(target=send_email, args=[message])
             email_thread.start()
@@ -52,8 +48,6 @@ def password_reset_via_email():
         return redirect(url_for('login'))
 
     return render_template('password_reset_via_email.html', form=form)
-
-
 
 
 def process_password_reset_token(token):
@@ -100,6 +94,7 @@ def change_password():
             current_app.logger.info(f'Incorrect password change for user: {current_user.username}')
     return render_template('change_password.html', form=form)
 
+
 @login_required
 def resend_email_confirmation():
     @copy_current_request_context
@@ -114,9 +109,6 @@ def resend_email_confirmation():
     flash('E-mail wysłany w celu potwierdzenia twojego adresu e-mail. Proszę sprawdzić email', 'success')
     current_app.logger.info(f'Email re-sent to confirm email address for user: {current_user.email}')
     return redirect(url_for('user_profile'))
-
-
-
 
 
 def login():
@@ -161,39 +153,45 @@ def register():
     form = RegisterForm(request.form)
 
     if request.method == 'POST':
-      if form.validate():
-          try:
-              new_user = User(form.username.data, form.password.data, form.email.data)
-              db.session.add(new_user)
-              db.session.commit()
-              flash(f'Dziękuję za rejestrację, {new_user.username} !Sprawdź swój adres e-mail,'
-                    f' aby potwierdzić !', 'success')
-              current_app.logger.info(f'Registered new user: {form.username.data}!')
+        if form.validate():
+            try:
+                new_user = User(form.username.data, form.password.data, form.email.data)
+                db.session.add(new_user)
+                db.session.commit()
+                flash(f'Dziękuję za rejestrację, {new_user.username} !Sprawdź swój adres e-mail,'
+                      f' aby potwierdzić !', 'success')
+                current_app.logger.info(f'Registered new user: {form.username.data}!')
 
-              @copy_current_request_context
-              def send_email(message):
-                  with current_app.app_context():
-                      mail.send(message)
+                @copy_current_request_context
+                def send_email(message):
+                    with current_app.app_context():
+                        mail.send(message)
 
-              msg = generate_confirmation_email(form.email.data)
-              email_thread = Thread(target=send_email, args=[msg])
-              email_thread.start()
+                msg = generate_confirmation_email(form.email.data)
+                email_thread = Thread(target=send_email, args=[msg])
+                email_thread.start()
 
-              return redirect(url_for('login'))
-          except IntegrityError:
-              db.session.rollback()
-              flash(f'Użytkownik ({form.username.data}) lub email ({form.email.data})'
-                    f' już istnieje w bazie danych. ', 'warning')
-      else:
-          flash(' Wprowadzono błędne dane !', 'danger')
+                return redirect(url_for('login'))
+            except IntegrityError:
+                db.session.rollback()
+                flash(f'Użytkownik ({form.username.data}) lub email ({form.email.data})'
+                      f' już istnieje w bazie danych. ', 'warning')
+        else:
+            flash(' Wprowadzono błędne dane !', 'danger')
 
     return render_template('register.html', form=form)
+
+
+@csrf.exempt
+# @login_required
+def delete_user():
+   current_user.delete()
+   return redirect(url_for('index'))
 
 
 @login_required
 def user_profile():
     return render_template('profile.html')
-
 
 
 def generate_confirmation_email(user_email):
