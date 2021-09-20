@@ -60,7 +60,7 @@ class User(db.Model):
     email_confirmation_sent_on = db.Column(db.DateTime, server_default=func.now())
     email_confirmed = db.Column(db.Boolean, default=False)
     email_confirmed_on = db.Column(db.DateTime)
-    books = db.relationship('Book', backref='user', lazy='dynamic')
+    books = db.relationship('Book', cascade="all, delete, delete-orphan", backref='user', lazy='dynamic')
 
 
 

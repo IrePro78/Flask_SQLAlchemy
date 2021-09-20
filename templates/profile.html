@@ -36,7 +36,7 @@
   </div>
   <div class="card-body">
     <p><a href="{{ url_for('change_password') }}">Zmiana hasła</a></p>
-    <p><a href="{{ url_for('delete_user') }}" onclick="return confirm('Czy na pewno chcesz skasować swoje konto ?')">Usuń konto</a></p>
+    <p><a href="{{ url_for('delete_account') }}" onclick="return confirm('Czy na pewno chcesz skasować swoje konto? Spowoduje to usunięcie wszystkich danych na twoim koncie! ')">Usuń konto</a></p>
     {% if not current_user.email_confirmed %}
      <p><a href="{{ url_for('resend_email_confirmation') }}">Wyslij link aktywacyjny</a></p>
     {% endif %}

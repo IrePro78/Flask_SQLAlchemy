@@ -183,10 +183,15 @@ def register():
 
 
 @csrf.exempt
-# @login_required
-def delete_user():
-   current_user.delete()
-   return redirect(url_for('index'))
+@login_required
+def delete_account():
+   user = User.query.filter_by(id=current_user.id).first()
+   db.session.delete(user)
+   db.session.commit()
+
+
+   flash(f'Twoje konto zostało skasowane.', 'success')
+   return redirect(url_for('login'))
 
 
 @login_required
