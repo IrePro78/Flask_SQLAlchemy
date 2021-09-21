@@ -22,7 +22,7 @@ $(function () {
         },
         minimumInputLength: 2
     });
- });
+});
 
 
 $(function () {
@@ -46,7 +46,7 @@ $(function () {
         },
         minimumInputLength: 2
     });
- });
+});
 
 
 

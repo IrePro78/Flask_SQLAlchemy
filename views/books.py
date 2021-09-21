@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
-from models import Book, Author, db, Publisher
 from views import authors, publishers
+from models import Book, db
 from app import app
 
 

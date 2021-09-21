@@ -1,14 +1,14 @@
-from datetime import datetime
-from flask_login import login_user, current_user, login_required, logout_user
 from flask import render_template, flash, redirect, url_for, request, abort, current_app, copy_current_request_context
-from itsdangerous import URLSafeTimedSerializer, BadSignature
 from mod_auth.forms import RegisterForm, LoginForm, EmailForm, PasswordForm, ChangePasswordForm
+from flask_login import login_user, current_user, login_required, logout_user
+from itsdangerous import URLSafeTimedSerializer, BadSignature
 from sqlalchemy.exc import IntegrityError
 from urllib.parse import urlparse
 from flask_mail import Message
+from datetime import datetime
 from threading import Thread
-from models import User, Book
-from app import db, mail, csrf
+from models import User
+from app import db, mail
 
 
 def generate_password_reset_email(user_email):
@@ -182,7 +182,6 @@ def register():
     return render_template('register.html', form=form)
 
 
-@csrf.exempt
 @login_required
 def delete_account():
    user = User.query.filter_by(id=current_user.id).first()

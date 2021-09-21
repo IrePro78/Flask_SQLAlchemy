@@ -15,6 +15,7 @@ app = Flask(__name__)
 from config import app
 
 db = SQLAlchemy(app)
+
 #Migracja db
 # db_migration = Migrate()
 

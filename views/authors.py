@@ -20,7 +20,7 @@ def index_authors():
 def add_author():
     if request.method == 'POST':
         author_id = request.form['author_name']
-        if len(author_id) < 3:
+        if author_id.isdigit():
             return author_id
         else:
             author_name = request.form['author_name']

@@ -19,7 +19,7 @@ def index_publishers():
 def add_publisher():
     if request.method == 'POST':
         publisher_id = request.form['publisher_name']
-        if len(publisher_id) < 3:
+        if publisher_id.isdigit():
             return publisher_id
         else:
             publisher_name = request.form['publisher_name']
