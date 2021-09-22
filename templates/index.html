@@ -14,9 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col md-12">
-
                 <div class="jumbotron p-3">
-
 
                     <h2>Lista książek
                         <button type="button" class="btn btn-outline-success float-right"
@@ -151,10 +149,10 @@
                                                     <label>Rodzaj oprawy:</label>
 
 
-                                                    <select name="cover_type" style="width: 100%;">
+                                                    <select id= "selCover1" name="cover_type" style="width: 100%;">
 
-                                                        <option value="twarda">twarda</option>
-                                                        <option value="miękka">miękka</option>
+                                                        <option value="{{row.cover_type}}" selected="selected">{{ row.cover_type }}</option>
+
                                                     </select>
 
 
@@ -230,7 +228,7 @@
                                     <div class="form-group ">
                                         <label>Autor:</label>
                                         <select id="selAuthor" name="author_name" required="1" style="width: 100%;">
-                                            <option value="">--------</option>
+                                            <option value="">---</option>
                                         </select>
 
                                     </div>
@@ -240,7 +238,7 @@
 
                                         <label>Wydwnictwo:</label>
                                         <select id="selPublisher" name="publisher_name" required="1" style="width: 100%;">
-                                            <option value="">--------</option>
+                                            <option value="">---</option>
                                         </select>
 
 
@@ -266,9 +264,8 @@
                                     <div class="form-group">
 
                                         <label>Rodzaj oprawy:</label>
-                                        <select name="cover_type" style="width: 100%;">
-                                            <option value="twarda">twarda</option>
-                                            <option value="miękka">miękka</option>
+                                        <select id= "selCover" name="cover_type" required="1" style="width: 100%;">
+                                            <option value="">---</option>
                                         </select>
 
                                     </div>

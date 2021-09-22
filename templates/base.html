@@ -39,35 +39,35 @@
 
 
 {% block navbar %}
+    <div class="jumbotron p-2">
+        <div class="well text-left">
+            <h2>
+                Flask Books library app
 
-<div class="jumbotron p-2">
-    <div class="well text-left">
-        <h2>
-            Flask Books library app
-
-            {% if current_user.is_authenticated %}
+                {% if current_user.is_authenticated %}
 
 
-           <a class="btn btn-outline-secondary float-right" href="{{ url_for('logout') }}">Wyloguj</a>
+               <a class="btn btn-outline-dark float-right" href="{{ url_for('logout') }}">Wyloguj</a>
 
-           <a class="btn btn-outline-secondary float-right mr-1" href="{{ url_for('user_profile') }}">Profil</a>
+               <a class="btn btn-outline-dark float-right mr-1" href="{{ url_for('user_profile') }}">Profil</a>
 
-           <a class="btn btn-outline-secondary float-right mr-1" href="{{ url_for('index') }}">Home</a>
+               <a class="btn btn-outline-dark float-right mr-1" href="{{ url_for('index') }}">Home</a>
 
-            {% else %}
+                {% else %}
 
-            <a class="btn btn-outline-secondary float-right mr-1" href="{{ url_for('register') }}">Rejestracja</a>
+                <a class="btn btn-outline-dark float-right mr-1" href="{{ url_for('register') }}">Rejestracja</a>
 
-            <button type="button" class="btn btn-outline-secondary float-right mr-1"
-                    data-toggle="modal" data-target="#modal_login"> Zaloguj
-            </button>
+                <button type="button" class="btn btn-outline-dark float-right mr-1"
+                        data-toggle="modal" data-target="#modal_login"> Zaloguj
+                </button>
 
-            {% endif %}
+                {% endif %}
 
-        </h2>
-    </div>    
+            </h2>
+        </div>
 
-</div>
+    </div>
+
 
 {% endblock %}
 

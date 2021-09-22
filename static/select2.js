@@ -50,9 +50,7 @@ $(function () {
 
 
 
-
-
-//Edit books select2 scripts
+//Edit books authors and publishers select2 scripts
 $(function () {
 
         $('button').on('click', function(){
@@ -105,6 +103,42 @@ $(function () {
             });
         });
     });
+
+
+
+
+    var cover_list = [{
+        id: "twarda", text: "twarda"},
+    {
+        id: "miękka", text: "miękka"}
+    ];
+
+
+//Add book cover_type select2 scripts
+
+$(function () {
+
+    $('button').on('click', function () {
+        $("#addmodal").find('#selCover').select2({
+            data: cover_list
+        });
+    });
+});
+
+//Edit books cover_type select2 scripts
+
+$(function () {
+
+    $('button').on('click', function(){
+        var modalID = $('#modaledit'+$(this).attr('id'));
+        $(modalID).find('#selCover1').select2({
+            data:cover_list
+        });
+    });
+});
+
+
+
 
 
 
